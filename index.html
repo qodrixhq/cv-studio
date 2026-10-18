@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CV স্টুডিও</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#e9ebf5;--panel:#fff;--ink:#161a2e;--mute:#6a7090;--line:#d9dcec;--brand:#4f46e5;--bi:#fff;--soft:#eef0fb;--ok:#12a36b;--warn:#e8890c;--field:#f7f8fd;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0c0f1d;--panel:#161a30;--ink:#eceefb;--mute:#9399bb;--line:#2a2f4d;--brand:#8b8cff;--bi:#0c0f1d;--soft:#1f2442;--field:#10142a}}
+:root[data-theme="dark"]{--bg:#0c0f1d;--panel:#161a30;--ink:#eceefb;--mute:#9399bb;--line:#2a2f4d;--brand:#8b8cff;--bi:#0c0f1d;--soft:#1f2442;--field:#10142a}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Hind Siliguri",system-ui,sans-serif}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+header{display:flex;align-items:center;gap:10px;padding:10px 18px;position:sticky;top:env(safe-area-inset-top,0px);z-index:6;background:var(--bg)}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:19px;flex:1}
+.mark{width:34px;height:34px;border-radius:10px;background:var(--brand);position:relative;overflow:hidden}
+.mark::before{content:"";position:absolute;left:8px;top:7px;width:18px;height:22px;background:var(--bi);border-radius:3px;transform:rotate(-8deg)}
+.mark::after{content:"";position:absolute;left:12px;top:13px;width:10px;height:3px;background:var(--brand);box-shadow:0 6px 0 var(--brand);transform:rotate(-8deg)}
+.btn{border:1px solid var(--line);background:var(--panel);padding:8px 14px;border-radius:999px;font-weight:600}
+.btn.p{background:var(--brand);color:var(--bi);border-color:var(--brand)}
+main{display:grid;grid-template-columns:minmax(340px,470px) 1fr;gap:18px;padding:6px 18px 24px;max-width:1300px;margin:0 auto;align-items:start}
+.ed{background:var(--panel);border-radius:22px;padding:14px;border:1px solid var(--line)}
+.rail{display:flex;gap:6px;overflow-x:auto;padding-bottom:10px}
+.pill{flex:0 0 auto;border:1px solid var(--line);background:var(--field);border-radius:999px;padding:6px 12px;font-size:14px;font-weight:600;display:flex;gap:6px;align-items:center;color:var(--mute)}
+.pill i{width:18px;height:18px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-size:11px;font-style:normal}
+.pill.on{background:var(--brand);color:var(--bi);border-color:var(--brand)}
+.pill.on i{background:var(--bi);color:var(--brand)}
+.pill.done i{background:var(--ok);color:#fff}
+.pane{display:none}.pane.on{display:block}
+h2.q{font-size:22px;line-height:1.25;margin:8px 0 2px}
+.sub{color:var(--mute);margin:0 0 8px;font-size:14px}
+label{display:block;font-size:13.5px;color:var(--mute);margin:10px 0 3px;font-weight:500}
+input,textarea,select{width:100%;font:inherit;color:var(--ink);background:var(--field);border:1px solid var(--line);border-radius:12px;padding:9px 12px}
+textarea{min-height:76px;resize:vertical}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.card{border:1px solid var(--line);background:var(--field);border-radius:14px;padding:4px 12px 12px;margin-top:10px}
+.card .x{float:right;margin-top:8px;border:0;background:var(--soft);border-radius:999px;padding:2px 10px;font-size:13px}
+.add{width:100%;margin-top:10px;border-style:dashed}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.chip{background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:14px}
+.chip.sel{background:var(--brand);color:var(--bi);border-color:var(--brand)}
+.chip.sg{border-style:dashed;background:transparent}
+.tpls{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tp{border:2px solid var(--line);background:var(--field);border-radius:14px;padding:8px 6px 6px;text-align:center;font-size:13px;font-weight:600}
+.tp.on{border-color:var(--brand)}
+.tp svg{width:100%;height:64px;display:block;margin-bottom:4px}
+.sw{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.sw button{width:34px;height:34px;border-radius:50%;border:3px solid var(--panel);box-shadow:0 0 0 1.5px var(--line)}
+.sw button.on{box-shadow:0 0 0 2.5px var(--brand)}
+.nav{display:flex;justify-content:space-between;gap:8px;margin-top:16px}
+.stage{min-width:0}
+.score{display:flex;gap:14px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:12px 16px;margin-bottom:14px}
+.ring{position:relative;width:64px;height:64px;flex:0 0 auto}
+.ring svg{width:64px;height:64px;transform:rotate(-90deg)}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:17px}
+.tips{margin:0;padding:0;list-style:none;font-size:14px}
+.tips li{margin:1px 0}
+.tips li::before{content:"＋ ";color:var(--warn);font-weight:700}
+.tips li.good::before{content:"✓ ";color:var(--ok)}
+.score h4{margin:0;font-size:15px}
+#wrap{overflow:hidden}
+#cv{width:794px;min-height:1123px;background:#fff;color:#1b2033;font-family:var(--cf,"Hind Siliguri");transform-origin:top left;box-shadow:0 10px 40px rgba(20,24,60,.25);border-radius:4px}
+.cv{display:grid;grid-template-columns:245px 1fr;min-height:1123px}
+.cv .sd{background:var(--ac);color:#fff;padding:34px 22px}
+.cv .mn{padding:36px 32px}
+.cv img{width:128px;height:128px;object-fit:cover;border-radius:50%;display:block;margin:0 auto 16px;border:3px solid rgba(255,255,255,.55)}
+.cv h1{margin:0;font-size:31px;line-height:1.15}
+.cv .rl{color:var(--ac);font-weight:600;font-size:17px;margin:2px 0 12px}
+.cv h3{font-size:15px;margin:20px 0 7px;color:var(--ac);padding-bottom:3px;border-bottom:2px solid var(--ac)}
+.cv .sd h3{color:#fff;border-color:rgba(255,255,255,.45)}
+.cv p{margin:4px 0;font-size:13.5px;word-break:break-word}
+.cv .it{margin-bottom:10px;font-size:14px}
+.cv .it b{display:block}.cv .it span{color:#5d6480;font-size:13px}
+.cv .tg{display:flex;flex-wrap:wrap;gap:5px}
+.cv .tg em{font-style:normal;font-size:13px;padding:2px 9px;border-radius:999px;background:rgba(255,255,255,.2)}
+.cv.min,.cv.bold{display:block}
+.cv.min .hd{padding:36px 40px 14px;border-bottom:3px solid var(--ac)}
+.cv.min .hd img{margin:0 0 10px;border-color:var(--ac)}
+.cv.min .mn,.cv.bold .mn{padding:6px 40px 34px}
+.cv.min .tg em,.cv.bold .mn .tg em{background:var(--soft2);color:#1b2033}
+.cv .ct{display:flex;flex-wrap:wrap;gap:2px 18px}
+.cv.bold .hd{background:var(--ac);color:#fff;padding:38px 40px;display:flex;gap:22px;align-items:center}
+.cv.bold .hd img{margin:0;flex:0 0 auto}
+.cv.bold .hd .rl{color:#fff;opacity:.85}
+.cv.bold h1{font-size:38px}
+.cv.bold h3{border:0;font-size:16px;padding:0 0 0 10px;border-left:5px solid var(--ac)}
+#cv{--soft2:color-mix(in srgb,var(--ac) 14%,#fff)}
+.bar{display:none}
+.hero{max-width:1300px;margin:0 auto;padding:28px 18px 18px;display:grid;grid-template-columns:1.15fr .85fr;gap:24px;align-items:center}
+.hh{font-size:clamp(34px,6vw,58px);line-height:1.1;margin:0 0 12px;font-weight:700;letter-spacing:-.01em}
+.hp{font-size:18px;color:var(--mute);max-width:34em;margin:0 0 20px}
+.go{display:inline-block;text-decoration:none;font-size:18px;padding:12px 26px}
+.stack{position:relative;height:230px}
+.sh{position:absolute;top:10px;width:150px;height:205px;border-radius:6px;box-shadow:0 10px 30px rgba(20,24,60,.28);background:linear-gradient(90deg,var(--c) 0 32%,#fff 32%)}
+.sh::after{content:"";position:absolute;left:42%;top:16px;right:12px;height:6px;border-radius:3px;background:#cfd3e6;box-shadow:0 14px 0 #e3e6f2,0 28px 0 #e3e6f2,0 42px 0 #e3e6f2,0 70px 0 #e3e6f2,0 84px 0 #e3e6f2}
+.sh:nth-child(1){left:6%;transform:rotate(-9deg);--c:#0f766e}
+.sh:nth-child(2){left:32%;transform:rotate(2deg);--c:#4f46e5;z-index:1}
+.sh:nth-child(3){left:58%;transform:rotate(10deg);--c:#be123c}
+.feat{max-width:1300px;margin:0 auto;padding:6px 18px 22px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.feat div{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:14px 16px}
+.feat b{display:block;font-size:17px}
+.feat span{color:var(--mute);font-size:14.5px}
+footer{text-align:center;color:var(--mute);font-size:14px;padding:6px 18px 30px}
+@media (max-width:880px){
+ .hero,.feat{grid-template-columns:1fr}
+ .stack{height:210px}
+}
+@media (max-width:880px){
+ main{grid-template-columns:1fr;padding:4px 12px 90px}
+ body[data-v="e"] .stage{display:none}
+ body[data-v="v"] .ed{display:none}
+ .bar{display:flex;position:fixed;left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:7;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:5px;box-shadow:0 8px 30px rgba(0,0,0,.2)}
+ .bar button{flex:1;border:0;background:none;padding:9px;border-radius:999px;font-weight:600}
+ .bar button.on{background:var(--brand);color:var(--bi)}
+ :root{padding-bottom:0}
+}
+@media print{
+ @page{size:A4;margin:0}
+ body{background:#fff}header,.ed,.score,.bar,.hero,.feat,footer{display:none!important}
+ main{display:block;padding:0}.stage{display:block!important}
+ #wrap{overflow:visible;height:auto!important}
+ #cv{box-shadow:none;transform:none!important;border-radius:0}
+ .cv .sd,.cv.bold .hd,.cv .tg em{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body data-v="e">
+<header>
+ <div class="logo"><span class="mark"></span><span id="tt"></span></div>
+ <button class="btn" id="lg"></button>
+ <button class="btn p" id="pdf"></button>
+</header>
+<section class="hero">
+ <div>
+  <h1 class="hh" data-bn="১০ মিনিটে পেশাদার CV" data-en="A professional CV in 10 minutes"></h1>
+  <p class="hp" data-bn="বাংলা ও ইংরেজি দুই ভাষায়, ফ্রি, লগইন ছাড়াই। তথ্য দিন, টেমপ্লেট আর রং বেছে নিন, PDF নামিয়ে নিন।" data-en="In Bangla and English, free, no login. Fill in your details, pick a look, download the PDF."></p>
+  <a class="btn p go" href="#builder" data-bn="এখনই শুরু করুন" data-en="Start now"></a>
+ </div>
+ <div class="stack" aria-hidden="true"><div class="sh"></div><div class="sh"></div><div class="sh"></div></div>
+</section>
+<section class="feat">
+ <div><b data-bn="দুই ভাষায় CV" data-en="Two languages"></b><span data-bn="এক ট্যাপে বাংলা থেকে ইংরেজিতে বদলান।" data-en="Switch between Bangla and English in one tap."></span></div>
+ <div><b data-bn="স্মার্ট স্ট্রেংথ মিটার" data-en="Smart strength meter"></b><span data-bn="কী বাদ পড়ল তার টিপস পান, সঙ্গে লাইভ প্রিভিউ।" data-en="Get tips on what's missing, with a live preview."></span></div>
+ <div><b data-bn="তথ্য থাকে আপনার ডিভাইসেই" data-en="Your data stays with you"></b><span data-bn="আপনার তথ্য শুধু আপনার ব্রাউজারে সেভ হয়, সার্ভারে যায় না।" data-en="Details are saved only in your browser, never sent to a server."></span></div>
+</section>
+<main id="builder">
+<section class="ed">
+ <div class="rail" id="rail"></div>
+ <div class="pane on" data-s="0">
+  <h2 class="q" id="q0"></h2><p class="sub" id="s0"></p>
+  <label id="l_name"></label><input id="name" autocomplete="name">
+  <label id="l_role"></label><input id="role">
+  <div class="row"><div><label id="l_email"></label><input id="email" type="email"></div><div><label id="l_phone"></label><input id="phone" type="tel"></div></div>
+  <label id="l_addr"></label><input id="addr">
+  <label id="l_photo"></label><input id="photo" type="file" accept="image/*">
+  <label id="l_sum"></label><textarea id="sum"></textarea>
+ </div>
+ <div class="pane" data-s="1"><h2 class="q" id="q1"></h2><p class="sub" id="s1"></p><div id="exp"></div><button class="btn add" id="aExp"></button></div>
+ <div class="pane" data-s="2"><h2 class="q" id="q2"></h2><p class="sub" id="s2"></p><div id="edu"></div><button class="btn add" id="aEdu"></button></div>
+ <div class="pane" data-s="3">
+  <h2 class="q" id="q3"></h2><p class="sub" id="s3"></p>
+  <div class="chips" id="chips"></div>
+  <input id="skIn"><label id="l_sg"></label><div class="chips" id="sug"></div>
+  <label id="l_lang"></label><input id="langs">
+ </div>
+ <div class="pane" data-s="4">
+  <h2 class="q" id="q4"></h2>
+  <label id="l_tpl"></label><div class="tpls" id="tpls"></div>
+  <label id="l_col"></label><div class="sw" id="sw"></div>
+  <label id="l_font"></label><select id="font"><option value="sans">Hind Siliguri</option><option value="serif">Noto Serif Bengali</option></select>
+  <button class="btn add" id="demo"></button>
+  <button class="btn add" id="reset" style="border-style:solid"></button>
+ </div>
+ <div class="nav"><button class="btn" id="back"></button><button class="btn p" id="next"></button></div>
+</section>
+<section class="stage">
+ <div class="score"><div class="ring"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="none" stroke="var(--line)" stroke-width="4"/><circle id="arc" cx="18" cy="18" r="15" fill="none" stroke="var(--brand)" stroke-width="4" stroke-linecap="round" stroke-dasharray="0 100" pathLength="100"/></svg><b id="pc"></b></div><div><h4 id="sh"></h4><ul class="tips" id="tips"></ul></div></div>
+ <div id="wrap"><div id="cv"></div></div>
+</section>
+</main>
+<footer data-bn="CV স্টুডিও · বাংলাদেশের জন্য বানানো" data-en="CV Studio · made for Bangladesh"></footer>
+<nav class="bar"><button class="on" data-v="e" id="b1"></button><button data-v="v" id="b2"></button></nav>
+<script>
+const T={bn:{
+tt:"CV স্টুডিও",pdf:"PDF করুন",lg:"EN",steps:["পরিচয়","অভিজ্ঞতা","শিক্ষা","দক্ষতা","ডিজাইন"],back:"আগের",next:"পরের ধাপ",e:"এডিট",v:"প্রিভিউ",
+q:["আপনার পরিচয় দিন","কোথায় কাজ করেছেন?","পড়াশোনার তথ্য","আপনি কী কী পারেন?","CV-র চেহারা বেছে নিন"],
+s0:"নামটা বড় করে CV-র মাথায় থাকবে।",s1:"না থাকলে ফাঁকা রাখুন, প্রজেক্ট বা স্বেচ্ছাসেবাও দিতে পারেন।",s2:"সবচেয়ে সাম্প্রতিকটা আগে দিন।",s3:"লিখে Enter চাপুন, অথবা নিচের সাজেশনে ট্যাপ করুন।",
+name:"পুরো নাম",role:"পদবি / পরিচয়",email:"ইমেইল",phone:"ফোন",addr:"ঠিকানা",photo:"ছবি (ঐচ্ছিক)",sum:"নিজের সম্পর্কে ২-৩ লাইন",
+org:"প্রতিষ্ঠান",pos:"পদ",per:"সময়",desc:"কী করেছেন (লাইন ধরে লিখুন)",inst:"প্রতিষ্ঠান",deg:"ডিগ্রি / বিভাগ",del:"মুছুন",aExp:"+ আরেকটা অভিজ্ঞতা",aEdu:"+ আরেকটা শিক্ষা",
+skIn:"যেমন: Excel, যোগাযোগ…",sg:"সাজেশন",lang:"ভাষা (কমা দিয়ে)",tpl:"টেমপ্লেট",col:"মূল রং",font:"লেখার ধরন",tp:["সাইডবার","সাদামাটা","বোল্ড"],
+demo:"নমুনা তথ্য দিয়ে দেখুন",reset:"সব মুছে নতুন শুরু",conf:"সব তথ্য মুছে যাবে। নিশ্চিত?",
+cCon:"যোগাযোগ",cSum:"সারসংক্ষেপ",cExp:"অভিজ্ঞতা",cEdu:"শিক্ষা",cSk:"দক্ষতা",cLg:"ভাষা",ph:"আপনার নাম",sh:"CV-র মান",done:"দারুণ! CV প্রায় প্রস্তুত।",
+tip:{name:"নাম লিখুন",role:"পদবি যোগ করুন",email:"ইমেইল দিন",phone:"ফোন নম্বর দিন",sum:"সারসংক্ষেপ অন্তত ৮০ অক্ষরের লিখুন",exp:"একটা অভিজ্ঞতা বিবরণসহ দিন",edu:"শিক্ষা যোগ করুন",sk:"কমপক্ষে ৫টা দক্ষতা দিন",photo:"একটা ছবি দিলে CV মনে থাকে বেশি"},
+sug:["যোগাযোগ","টিমওয়ার্ক","গ্রাহকসেবা","Microsoft Excel","সময় ব্যবস্থাপনা","নেতৃত্ব","Canva","সমস্যা সমাধান","Python","কনটেন্ট রাইটিং"]},
+en:{
+tt:"CV Studio",pdf:"Get PDF",lg:"বাংলা",steps:["Profile","Work","Education","Skills","Design"],back:"Back",next:"Next step",e:"Edit",v:"Preview",
+q:["Tell us who you are","Where have you worked?","Your education","What are you good at?","Pick the look"],
+s0:"Your name sits big at the top of the CV.",s1:"Leave it empty if none; projects and volunteering count too.",s2:"Most recent first.",s3:"Type and press Enter, or tap a suggestion.",
+name:"Full name",role:"Job title",email:"Email",phone:"Phone",addr:"Address",photo:"Photo (optional)",sum:"Short summary (2-3 lines)",
+org:"Company",pos:"Position",per:"Period",desc:"What you did (one point per line)",inst:"Institution",deg:"Degree / major",del:"Remove",aExp:"+ Add another job",aEdu:"+ Add another",
+skIn:"e.g. Excel, communication…",sg:"Suggestions",lang:"Languages (comma separated)",tpl:"Template",col:"Main color",font:"Font style",tp:["Sidebar","Minimal","Bold"],
+demo:"Try with sample data",reset:"Clear everything",conf:"This erases all data. Continue?",
+cCon:"Contact",cSum:"Summary",cExp:"Experience",cEdu:"Education",cSk:"Skills",cLg:"Languages",ph:"Your name",sh:"CV strength",done:"Great! Your CV is nearly ready.",
+tip:{name:"Add your name",role:"Add a job title",email:"Add an email",phone:"Add a phone number",sum:"Write a summary of 80+ characters",exp:"Add one job with details",edu:"Add your education",sk:"Add at least 5 skills",photo:"A photo makes your CV memorable"},
+sug:["Communication","Teamwork","Customer service","Microsoft Excel","Time management","Leadership","Canva","Problem solving","Python","Content writing"]}};
+const SAMPLE={bn:{name:"তানভীর হাসান",role:"কাস্টমার সার্ভিস প্রতিনিধি",email:"tanvir@example.com",phone:"01700-000000",addr:"ঢাকা, বাংলাদেশ",sum:"গ্রাহকের সমস্যা দ্রুত বুঝে সমাধান দিতে পারি। পড়াশোনার পাশাপাশি দুই বছরের কাজের অভিজ্ঞতা আছে।",sk:["যোগাযোগ","গ্রাহকসেবা","Microsoft Excel","টিমওয়ার্ক","সময় ব্যবস্থাপনা"],langs:"বাংলা, ইংরেজি",exp:[{org:"ABC ফুড সার্ভিস",pos:"গ্রাহকসেবা প্রতিনিধি",per:"২০২৪–বর্তমান",desc:"প্রতিদিন ৬০+ অর্ডার সামলানো\nঅভিযোগ কমাতে ফলো-আপ সিস্টেম চালু"}],edu:[{inst:"ঢাকা কলেজ",deg:"বিএসসি (অনার্স), পদার্থবিজ্ঞান",per:"২০২৫–২০২৯"}]},
+en:{name:"Tanvir Hasan",role:"Customer Service Representative",email:"tanvir@example.com",phone:"01700-000000",addr:"Dhaka, Bangladesh",sum:"I understand customer problems fast and solve them well. Two years of work experience alongside my studies.",sk:["Communication","Customer service","Microsoft Excel","Teamwork","Time management"],langs:"Bangla, English",exp:[{org:"ABC Food Service",pos:"Customer Service Rep",per:"2024–Present",desc:"Handled 60+ orders daily\nIntroduced a follow-up system to cut complaints"}],edu:[{inst:"Dhaka College",deg:"BSc (Hons), Physics",per:"2025–2029"}]}};
+const COLS=["#4f46e5","#0f766e","#be123c","#b45309","#1d4ed8","#111827"];
+const $=id=>document.getElementById(id);
+const esc=s=>String(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const blank=()=>({lang:"bn",tpl:"side",ac:COLS[0],font:"sans",name:"",role:"",email:"",phone:"",addr:"",photo:"",sum:"",sk:[],langs:"",exp:[{}],edu:[{}]});
+let S=blank(),step=0;
+try{const r=localStorage.getItem("cvs2");if(r)S=Object.assign(blank(),JSON.parse(r))}catch(e){}
+const save=()=>{try{localStorage.setItem("cvs2",JSON.stringify(S))}catch(e){}};
+const t=()=>T[S.lang];
+const done=()=>[S.name&&S.role&&S.email,S.exp.some(e=>e.org||e.pos),S.edu.some(e=>e.inst||e.deg),S.sk.length>=3,true];
+
+function labels(){
+ const L=t();document.documentElement.lang=S.lang;document.title=L.tt;
+ document.querySelectorAll("[data-bn]").forEach(e=>e.textContent=e.dataset[S.lang]);
+ ["tt","pdf","lg","back","next","s0","s1","s2","s3","name","role","email","phone","addr","photo","sum","aExp","aEdu","demo","reset","sh"].forEach(k=>{const el=$(k)||$("l_"+k);if(el)el.textContent=L[k]});
+ ["name","role","email","phone","addr","photo","sum"].forEach(k=>$("l_"+k).textContent=L[k]);
+ $("l_sg").textContent=L.sg;$("l_lang").textContent=L.lang;$("l_tpl").textContent=L.tpl;$("l_col").textContent=L.col;$("l_font").textContent=L.font;
+ $("skIn").placeholder=L.skIn;$("name").placeholder=L.ph;$("b1").textContent=L.e;$("b2").textContent=L.v;
+ for(let i=0;i<5;i++)$("q"+i).textContent=L.q[i];
+ $("rail").innerHTML=L.steps.map((s,i)=>`<button class="pill" data-st="${i}"><i>${i+1}</i>${s}</button>`).join("");
+ $("tpls").innerHTML=["side","min","bold"].map((k,i)=>`<button class="tp" data-tp="${k}"><svg viewBox="0 0 60 64">${[
+  '<rect width="60" height="64" rx="4" fill="var(--soft)"/><rect width="20" height="64" fill="var(--brand)"/><rect x="26" y="8" width="26" height="5" fill="var(--mute)"/><rect x="26" y="20" width="30" height="3" fill="var(--line)"/><rect x="26" y="27" width="24" height="3" fill="var(--line)"/>',
+  '<rect width="60" height="64" rx="4" fill="var(--soft)"/><rect x="6" y="7" width="30" height="5" fill="var(--mute)"/><rect x="6" y="16" width="48" height="2" fill="var(--brand)"/><rect x="6" y="24" width="48" height="3" fill="var(--line)"/><rect x="6" y="31" width="40" height="3" fill="var(--line)"/>',
+  '<rect width="60" height="64" rx="4" fill="var(--soft)"/><rect width="60" height="22" fill="var(--brand)"/><rect x="6" y="9" width="30" height="5" fill="#fff"/><rect x="6" y="30" width="48" height="3" fill="var(--line)"/><rect x="6" y="37" width="38" height="3" fill="var(--line)"/>'][i]}</svg>${L.tp[i]}</button>`).join("");
+ $("sw").innerHTML=COLS.map(c=>`<button data-c="${c}" style="background:${c}" aria-label="${c}"></button>`).join("");
+ $("sug").innerHTML=L.sug.map(s=>`<button class="chip sg" data-sg="${esc(s)}">+ ${esc(s)}</button>`).join("");
+}
+function ui(){
+ document.querySelectorAll(".pane").forEach(p=>p.classList.toggle("on",+p.dataset.s===step));
+ const d=done();
+ document.querySelectorAll(".pill").forEach((p,i)=>{p.classList.toggle("on",i===step);p.classList.toggle("done",i!==step&&d[i]&&i<4)});
+ $("back").style.visibility=step?"visible":"hidden";$("next").style.visibility=step<4?"visible":"hidden";
+ document.querySelectorAll(".tp").forEach(b=>b.classList.toggle("on",b.dataset.tp===S.tpl));
+ document.querySelectorAll("#sw button").forEach(b=>b.classList.toggle("on",b.dataset.c===S.ac));
+ $("chips").innerHTML=S.sk.map((s,i)=>`<span class="chip sel">${esc(s)} <button data-rm="${i}" style="border:0;background:none;color:inherit" aria-label="x">×</button></span>`).join("");
+ document.querySelectorAll(".chip.sg").forEach(b=>b.style.display=S.sk.includes(b.dataset.sg)?"none":"");
+}
+function list(k){
+ const L=t(),f=k==="exp"?[["pos",L.pos],["org",L.org],["per",L.per],["desc",L.desc]]:[["deg",L.deg],["inst",L.inst],["per",L.per]];
+ $(k).innerHTML=S[k].map((it,i)=>`<div class="card"><button class="x" data-del="${k}" data-i="${i}">${L.del}</button>`+f.map(([n,l])=>`<label>${l}</label>${n==="desc"?"<textarea":"<input"} data-k="${k}" data-i="${i}" data-f="${n}" ${n==="desc"?`>${esc(it[n])}</textarea>`:`value="${esc(it[n])}">`}`).join("")+`</div>`).join("");
+}
+function fill(){["name","role","email","phone","addr","sum","langs","font"].forEach(k=>$(k).value=S[k]);list("exp");list("edu")}
+function score(){
+ const L=t(),x=[["name",S.name,10],["role",S.role,10],["email",S.email,10],["phone",S.phone,5],["sum",S.sum.length>=80,15],["exp",S.exp.some(e=>(e.org||e.pos)&&e.desc),20],["edu",S.edu.some(e=>e.inst||e.deg),10],["sk",S.sk.length>=5,15],["photo",S.photo,5]];
+ let p=0;const miss=[];x.forEach(([k,ok,w])=>ok?p+=w:miss.push(k));
+ $("pc").textContent=p+"%";$("arc").setAttribute("stroke-dasharray",p+" 100");
+ $("tips").innerHTML=miss.length?miss.slice(0,3).map(k=>`<li>${L.tip[k]}</li>`).join(""):`<li class="good">${L.done}</li>`;
+}
+function render(){
+ const L=t(),c=S,ul=a=>a.length?`<div class="tg">${a.map(x=>`<em>${esc(x)}</em>`).join("")}</div>`:"";
+ const lg=c.langs.split(",").map(s=>s.trim()).filter(Boolean);
+ const con=[c.email,c.phone,c.addr].filter(Boolean).map(x=>`<p>${esc(x)}</p>`).join("");
+ const exp=c.exp.filter(e=>e.org||e.pos).map(e=>`<div class="it"><b>${esc(e.pos)}${e.pos&&e.org?" — ":""}${esc(e.org)}</b><span>${esc(e.per)}</span>${e.desc?`<p>${esc(e.desc).replace(/\n/g,"<br>")}</p>`:""}</div>`).join("");
+ const edu=c.edu.filter(e=>e.inst||e.deg).map(e=>`<div class="it"><b>${esc(e.deg)}</b><span>${esc(e.inst)}${e.per?" · "+esc(e.per):""}</span></div>`).join("");
+ const img=c.photo?`<img src="${c.photo}" alt="">`:"";
+ const sec=(h,b)=>b?`<h3>${h}</h3>${b}`:"";
+ const nm=`<h1>${esc(c.name)||L.ph}</h1><div class="rl">${esc(c.role)}</div>`;
+ const body=sec(L.cSum,c.sum?`<p>${esc(c.sum).replace(/\n/g,"<br>")}</p>`:"")+sec(L.cExp,exp)+sec(L.cEdu,edu);
+ const el=$("cv");el.style.setProperty("--ac",c.ac);el.style.setProperty("--cf",c.font==="serif"?'"Noto Serif Bengali",serif':'"Hind Siliguri",sans-serif');
+ if(c.tpl==="min")el.innerHTML=`<div class="cv min"><div class="hd">${img}${nm}<div class="ct">${con}</div></div><div class="mn">${body}${sec(L.cSk,ul(c.sk))}${sec(L.cLg,ul(lg))}</div></div>`;
+ else if(c.tpl==="bold")el.innerHTML=`<div class="cv bold"><div class="hd">${img}<div>${nm}<div class="ct">${con}</div></div></div><div class="mn">${body}${sec(L.cSk,ul(c.sk))}${sec(L.cLg,ul(lg))}</div></div>`;
+ else el.innerHTML=`<div class="cv"><div class="sd">${img}${sec(L.cCon,con)}${sec(L.cSk,ul(c.sk))}${sec(L.cLg,ul(lg))}</div><div class="mn">${nm}${body}</div></div>`;
+ score();ui();fit();
+}
+function fit(){
+ const w=$("wrap"),el=$("cv");el.style.transform="";w.style.height="";
+ const s=Math.min(1,w.clientWidth/794);
+ if(s<1)el.style.transform=`scale(${s})`;
+ w.style.height=(el.offsetHeight*s)+"px";
+}
+function upd(){save();render()}
+document.addEventListener("input",e=>{
+ const el=e.target,k=el.dataset.k;
+ if(k)S[k][+el.dataset.i][el.dataset.f]=el.value;
+ else if(["name","role","email","phone","addr","sum","langs","font"].includes(el.id))S[el.id]=el.value;
+ else return;
+ upd();
+});
+$("skIn").addEventListener("keydown",e=>{
+ if(e.key==="Enter"||e.key===","){e.preventDefault();const v=e.target.value.trim();if(v&&!S.sk.includes(v))S.sk.push(v);e.target.value="";upd()}
+});
+document.addEventListener("click",e=>{
+ const b=e.target.closest("button");if(!b)return;const d=b.dataset;
+ if(d.st!==undefined){step=+d.st;ui()}
+ else if(d.del){const a=S[d.del];a.splice(+d.i,1);if(!a.length)a.push({});list(d.del);upd()}
+ else if(d.tp){S.tpl=d.tp;upd()}
+ else if(d.c){S.ac=d.c;upd()}
+ else if(d.sg){S.sk.push(d.sg);upd()}
+ else if(d.rm){S.sk.splice(+d.rm,1);upd()}
+ else if(d.v){document.body.dataset.v=d.v;document.querySelectorAll(".bar button").forEach(x=>x.classList.toggle("on",x===b));fit()}
+ else if(b.id==="next"){step=Math.min(4,step+1);ui();scrollTo(0,0)}
+ else if(b.id==="back"){step=Math.max(0,step-1);ui()}
+ else if(b.id==="aExp"){S.exp.push({});list("exp");save()}
+ else if(b.id==="aEdu"){S.edu.push({});list("edu");save()}
+ else if(b.id==="lg"){S.lang=S.lang==="bn"?"en":"bn";labels();list("exp");list("edu");upd()}
+ else if(b.id==="demo"){const m=SAMPLE[S.lang];Object.assign(S,JSON.parse(JSON.stringify(m)));fill();upd()}
+ else if(b.id==="reset"){if(confirm(t().conf)){const l=S.lang;S=blank();S.lang=l;fill();upd()}}
+ else if(b.id==="pdf"){document.body.dataset.v="v";setTimeout(()=>{$("cv").style.transform="";window.print()},150)}
+});
+$("photo").addEventListener("change",e=>{
+ const f=e.target.files[0];if(!f)return;const im=new Image,u=URL.createObjectURL(f);
+ im.onload=()=>{const m=Math.min(im.width,im.height),c=document.createElement("canvas");c.width=c.height=Math.min(300,m);
+  c.getContext("2d").drawImage(im,(im.width-m)/2,(im.height-m)/2,m,m,0,0,c.width,c.height);
+  S.photo=c.toDataURL("image/jpeg",.85);URL.revokeObjectURL(u);upd()};im.src=u;
+});
+addEventListener("resize",fit);addEventListener("afterprint",fit);
+labels();fill();render();
+</script>
+</body>
+</html>
