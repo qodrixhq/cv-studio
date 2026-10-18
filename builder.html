@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CV বানান | CV স্টুডিও</title>
+<meta name="description" content="বাংলাদেশের জন্য বাংলা ও ইংরেজি দুই ভাষায় ফ্রি CV বানানোর সাইট।">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1">
+</head>
+<body  data-v="e">
+<header>
+ <a class="logo" href="index.html"><span class="mark"></span><span id="tt"></span></a>
+ <button class="btn" id="lg"></button>
+ <button class="btn p" id="pdf"></button>
+</header>
+<nav class="tabs"><a href="index.html" data-bn="হোম" data-en="Home"></a><a href="builder.html" class=on data-bn="CV বানান" data-en="Build CV"></a><a href="ats.html" data-bn="ATS ও কিওয়ার্ড" data-en="ATS and keywords"></a><a href="cover-letter.html" data-bn="কভার লেটার" data-en="Cover letter"></a><a href="guide.html" data-bn="গাইড" data-en="Guide"></a></nav>
+<main id="builder">
+<section class="ed">
+ <div class="rail" id="rail"></div>
+ <div class="pane on" data-s="0">
+  <h2 class="q" id="q0"></h2><p class="sub" id="s0"></p>
+  <label id="l_name"></label><input id="name" autocomplete="name">
+  <label id="l_role"></label><input id="role"><p class="sub" id="roleNote" hidden></p>
+  <div class="row"><div><label id="l_email"></label><input id="email" type="email"></div></div><label id="l_phone"></label><div class="row cc"><select id="cc"></select><input id="phone" type="tel" inputmode="numeric" autocomplete="tel-national"></div>
+  <label id="l_addr"></label><div id="addrBox"></div>
+  <label id="l_photo"></label><input id="photo" type="file" accept="image/*">
+  <div id="phCtl" hidden><label data-bn="ছবির জুম" data-en="Photo zoom"></label><input type="range" data-ph="pz" min="1" max="3" step="0.05"><label data-bn="ডানে বাঁয়ে সরান" data-en="Move left or right"></label><input type="range" data-ph="px" min="-1" max="1" step="0.05"><label data-bn="ওপরে নিচে সরান" data-en="Move up or down"></label><input type="range" data-ph="py" min="-1" max="1" step="0.05"><button class="btn add" id="phClr" data-bn="ছবি সরান" data-en="Remove photo"></button></div>
+  <label id="l_sum"></label><textarea id="sum"></textarea>
+ </div>
+ <div class="pane" data-s="1"><h2 class="q" id="q1"></h2><p class="sub" id="s1"></p>
+ <div class="chips"><button class="chip" data-lv="exp" data-bn="অভিজ্ঞ" data-en="Experienced"></button><button class="chip" data-lv="fresher" data-bn="ফ্রেশার" data-en="Fresher"></button></div>
+ <p class="sub" id="frNote" data-bn="ফ্রেশার হিসেবে CV-তে অভিজ্ঞতার সেকশন ফাঁকা থাকবে।" data-en="As a fresher, the experience section stays empty on your CV."></p>
+ <div id="expBox"><div id="exp"></div><button class="btn add" id="aExp"></button></div></div>
+ <div class="pane" data-s="2"><h2 class="q" id="q2"></h2><p class="sub" id="s2"></p><div id="edu"></div><button class="btn add" id="aEdu"></button></div>
+ <div class="pane" data-s="3">
+  <h2 class="q" id="q3"></h2><p class="sub" id="s3"></p>
+  <div class="chips" id="chips"></div>
+  <input id="skIn"><label id="l_sg"></label><div class="chips" id="sug"></div>
+  <label id="l_lang"></label><div id="lgs"></div><button class="btn add" id="aLg"></button>
+  <label data-bn="শখ (সর্বোচ্চ ৬টা)" data-en="Hobbies (up to 6)"></label><div class="chips" id="hbSel"></div><input id="hbIn" data-bn-ph="x"><div class="chips" id="hbSug"></div>
+ </div>
+ <div class="pane" data-s="4"><h2 class="q" id="q4"></h2><p class="sub" data-bn="টুল বেছে নিন, স্তর ও কাজগুলো ঠিক করুন (সর্বোচ্চ ৬টা)। না থাকলে ফাঁকা রাখুন।" data-en="Pick a tool, set your level and tasks (up to 6). Leave empty if none."></p><div id="ais"></div><button class="btn add" id="aAi"></button></div>
+ <div class="pane" data-s="5"><h2 class="q" id="q5"></h2><p class="sub" data-bn="যা নেই তা ফাঁকা রাখুন, CV-তে সেই সেকশন আসবে না।" data-en="Leave out whatever you do not have; empty sections do not appear on the CV."></p>
+ <details open><summary data-bn="অন্যান্য কার্যক্রম" data-en="Extra curricular activities"></summary><div id="acts"></div><button class="btn add" id="aAct"></button></details>
+ <details><summary data-bn="সার্টিফিকেট ও ট্রেনিং" data-en="Certificates and training"></summary><div id="certs"></div><button class="btn add" data-addx="cert" data-bn="+ আরেকটা সার্টিফিকেট" data-en="+ Add another certificate"></button></details>
+ <details><summary data-bn="প্রজেক্ট" data-en="Projects"></summary><div id="prjs"></div><button class="btn add" data-addx="prj" data-bn="+ আরেকটা প্রজেক্ট" data-en="+ Add another project"></button></details>
+ <details><summary data-bn="পুরস্কার ও অর্জন" data-en="Awards and achievements"></summary><div id="aws"></div><button class="btn add" data-addx="aw" data-bn="+ আরেকটা অর্জন" data-en="+ Add another award"></button></details>
+ <details><summary data-bn="রেফারেন্স" data-en="References"></summary><div id="refs"></div><button class="btn add" data-addx="ref" data-bn="+ আরেকজন রেফারেন্স" data-en="+ Add another reference"></button></details>
+ <details><summary data-bn="ব্যক্তিগত তথ্য (ঐচ্ছিক)" data-en="Personal details (optional)"></summary><div id="piBox"></div></details>
+ <details><summary data-bn="ঘোষণা ও স্বাক্ষর" data-en="Declaration and signature"></summary><label class="ck"><input type="checkbox" data-dec><span data-bn="CV-র শেষে ঘোষণা যোগ করুন" data-en="Add a declaration at the end of the CV"></span></label><label data-bn="স্বাক্ষর (ছবি)" data-en="Signature (image)"></label><input id="sigIn" type="file" accept="image/*"><button class="btn add" id="sigClr" data-bn="স্বাক্ষর সরান" data-en="Remove signature"></button></details></div>
+ <div class="pane" data-s="6">
+  <h2 class="q" id="q6"></h2>
+  <label id="l_tpl"></label><div class="tpls" id="tpls"></div>
+  <label id="l_col"></label><div class="sw" id="sw"></div>
+  <label id="l_font"></label><select id="font"></select>
+  <label data-bn="ছবির স্টাইল" data-en="Photo style"></label>
+  <div class="chips"><button class="chip" data-ps="ring" data-bn="অরবিট" data-en="Orbit"></button><button class="chip" data-ps="arch" data-bn="আর্চ" data-en="Arch"></button><button class="chip" data-ps="frame" data-bn="ফ্রেম" data-en="Frame"></button><button class="chip" data-ps="hex" data-bn="লিফ" data-en="Leaf"></button></div>
+  <label data-bn="সেকশন সাজান (ব্লকে ট্যাপ করে বেছে সরান বা লুকান)" data-en="Arrange sections (tap a block, then move or hide it)"></label><div class="chips" id="pres"></div><div class="pgmap" id="pgmap"></div><div class="mapbar" id="mapBar"></div>
+  <label data-bn="ঘনত্ব (লেখার ফাঁক)" data-en="Spacing"></label><div class="chips"><button class="chip" data-sp="c" data-bn="ঘন" data-en="Compact"></button><button class="chip" data-sp="n" data-bn="সাধারণ" data-en="Normal"></button><button class="chip" data-sp="r" data-bn="ফাঁকা" data-en="Relaxed"></button></div>
+  <label data-bn="লেখার আকার" data-en="Text size"></label><div class="chips"><button class="chip" data-fz="s" data-bn="ছোট" data-en="Small"></button><button class="chip" data-fz="n" data-bn="সাধারণ" data-en="Normal"></button><button class="chip" data-fz="l" data-bn="বড়" data-en="Large"></button></div>
+  <label class="ck"><input type="checkbox" data-fit><span data-bn="PDF-এ এক পেজে ফিট করো" data-en="Fit to one page in the PDF"></span></label>
+  <button class="btn add" id="docx" data-bn="Word (.docx) ডাউনলোড" data-en="Download Word (.docx)"></button>
+  <button class="btn add" id="prn" data-bn="প্রিন্ট করে PDF (লেখা সিলেক্ট করা যায়)" data-en="Print to PDF (selectable text)"></button>
+  <button class="btn add" id="demo"></button>
+  <button class="btn add" id="reset" style="border-style:solid"></button>
+ </div>
+ <div class="nav"><button class="btn" id="back"></button><button class="btn p" id="next"></button></div>
+</section>
+<section class="stage">
+ <div class="score"><div class="ring"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="none" stroke="var(--line)" stroke-width="4"/><circle id="arc" cx="18" cy="18" r="15" fill="none" stroke="var(--brand)" stroke-width="4" stroke-linecap="round" stroke-dasharray="0 100" pathLength="100"/></svg><b id="pc"></b></div><div><h4 id="sh"></h4><ul class="tips" id="tips"></ul></div></div>
+ <div id="fitHint" class="hint" hidden></div><div class="tl"><a class="btn" href="ats.html" data-bn="ATS ও কিওয়ার্ড চেক" data-en="ATS and keyword check"></a><a class="btn" href="cover-letter.html" data-bn="কভার লেটার" data-en="Cover letter"></a></div>
+ <div id="wrap"><div id="cv"></div></div>
+</section>
+</main>
+<div id="toast"></div>
+<div class="pv"><a class="btn" href="privacy.html" data-bn="গোপনীয়তা নীতি" data-en="Privacy policy"></a></div>
+<footer data-bn="CV স্টুডিও · বাংলাদেশের জন্য বানানো" data-en="CV Studio · made for Bangladesh"></footer>
+<nav class="bar"><button class="on" data-v="e" id="b1"></button><button data-v="v" id="b2"></button></nav>
+<script src="app.js?v=1"></script>
+</body>
+</html>
