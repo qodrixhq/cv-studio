@@ -134,7 +134,7 @@ details>summary{padding:11px 0;font-weight:600;cursor:pointer}
 .mb.on{border-color:var(--brand);box-shadow:0 0 0 2px var(--brand) inset}
 .mb.off{opacity:.45;text-decoration:line-through}
 .mapbar{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin:8px 0}
-.hint{display:flex;gap:10px;align-items:center;justify-content:space-between;background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:10px 14px;margin-bottom:12px;font-size:14px}
+.atsb{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:10px 16px;margin-bottom:14px;font-size:14px}.atsb summary{cursor:pointer;font-weight:700}.atsb ul{list-style:none;margin:10px 0 0;padding:0}.atsb li{padding:5px 0;display:flex;gap:8px}.atsb li i{font-style:normal;flex:none}.atsb .nt{color:var(--mute);font-size:13px;margin-top:6px}.kwt{width:100%;box-sizing:border-box;min-height:110px;margin-top:10px;padding:10px;border-radius:12px;border:1px solid var(--line);background:var(--soft);color:inherit;font:inherit;resize:vertical}.kwc{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.kwc span{padding:4px 10px;border-radius:999px;border:1px solid var(--line);font-size:13px}.kwc .m{background:rgba(34,160,90,.15)}.kwc .x{background:rgba(230,150,20,.18)}.kwi{width:100%;box-sizing:border-box;margin-top:8px;padding:10px;border-radius:12px;border:1px solid var(--line);background:var(--soft);color:inherit;font:inherit}.clb{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.hint{display:flex;gap:10px;align-items:center;justify-content:space-between;background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:10px 14px;margin-bottom:12px;font-size:14px}
 .hint[hidden]{display:none}
 .cv .mn .tg em,.cv .l .tg em,.cv .r .tg em{background:var(--soft2);color:#1b2033}
 .cv.cp .r .tg em{background:#fff}
@@ -330,7 +330,7 @@ footer{text-align:center;color:var(--mute);font-size:14px;padding:6px 18px 30px}
 </section>
 <section class="stage">
  <div class="score"><div class="ring"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="none" stroke="var(--line)" stroke-width="4"/><circle id="arc" cx="18" cy="18" r="15" fill="none" stroke="var(--brand)" stroke-width="4" stroke-linecap="round" stroke-dasharray="0 100" pathLength="100"/></svg><b id="pc"></b></div><div><h4 id="sh"></h4><ul class="tips" id="tips"></ul></div></div>
- <div id="fitHint" class="hint" hidden></div>
+ <div id="fitHint" class="hint" hidden></div><details id="ats" class="atsb"><summary id="atsS"></summary><ul id="atsL"></ul><p class="nt" id="atsN"></p></details><details id="kw" class="atsb"><summary id="kwS"></summary><textarea id="kwT" class="kwt"></textarea><div id="kwR"></div></details><details id="cl" class="atsb"><summary id="clS"></summary><input id="clC" class="kwi"><input id="clP" class="kwi"><select id="clM" class="kwi"></select><div class="clb"><button type="button" class="btn p" id="clG"></button></div><textarea id="clT" class="kwt" style="min-height:260px"></textarea><div class="clb"><button type="button" class="btn" id="clCp"></button><button type="button" class="btn" id="clDl"></button></div></details>
  <div id="wrap"><div id="cv"></div></div>
 </section>
 </main>
@@ -443,18 +443,18 @@ const CITY={"47":[["Dhanmondi","ধানমন্ডি"],["Gulshan","গুল
 const SB_URL="https://gllyoaggeqzkeqjthulo.supabase.co",SB_KEY="sb_publishable_FtHp5ba_Dh19AgAlhy5D9A_vWgkcfbz",SHARED_API=SB_URL;
 const sbH=tok=>Object.assign({apikey:SB_KEY,"Content-Type":"application/json"},tok?{Authorization:"Bearer "+tok}:{});
 const sbClean=q=>String(q).replace(/[*,()%\\]/g," ").trim();
-async function sbFind(type,q){const c=sbClean(q);if(c.length<2)return[];const r=await fetch(`${SB_URL}/rest/v1/names?select=name&type=eq.${type}&status=eq.approved&name=ilike.*${encodeURIComponent(c)}*&limit=6`,{headers:sbH(),signal:AbortSignal.timeout(6000)});if(!r.ok)throw new Error("sb");return(await r.json()).map(x=>x.name)}
+async function sbFind(type,q){const c=sbClean(q);if(c.length<2)return[];const r=await fetch(`${SB_URL}/rest/v1/names?select=name&type=eq.${type}&status=eq.approved&name=ilike.*${encodeURIComponent(c)}*&limit=6`,{headers:sbH(),signal:AbortSignal.timeout(6000)});if(!r.ok){window.__sbErr="HTTP "+r.status;throw new Error("sb")}window.__sbErr="";return(await r.json()).map(x=>x.name)}
 function sbAdd(type,n){const c=String(n).trim();if(c.length<2||c.length>80)return;fetch(`${SB_URL}/rest/v1/names`,{method:"POST",headers:Object.assign(sbH(),{Prefer:"return=minimal"}),body:JSON.stringify({type,name:c})}).catch(()=>{})}
 function adminOpen(){let tok=sessionStorage.getItem("cvadm")||"";const old=document.getElementById("adm");if(old)old.remove();const o=document.createElement("div");o.id="adm";o.style.cssText="position:fixed;inset:0;z-index:9999;background:Canvas;color:CanvasText;overflow:auto;padding:16px;font:15px/1.6 'Hind Siliguri',sans-serif;color-scheme:light dark";document.body.appendChild(o);
  const x=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));const TL={pos:"পদ",company:"কোম্পানি",inst:"প্রতিষ্ঠান",ai:"AI টুল"};
  const bs="padding:8px 12px;border-radius:8px;border:1px solid #8886;background:transparent;color:inherit;font:inherit;margin:2px",is="width:100%;padding:10px;border-radius:8px;border:1px solid #8886;background:transparent;color:inherit;font:inherit;margin:4px 0;box-sizing:border-box";
- const head=`<div style="display:flex;justify-content:space-between;align-items:center"><b style="font-size:18px">নাম অডিট (শুধু মালিক)</b><button data-adm="close" style="${bs}">✕ বন্ধ</button></div>`;
+ const head=`<div style="display:flex;justify-content:space-between;align-items:center"><b style="font-size:18px">নাম অডিট (শুধু মালিক)</b><span><button data-adm="test" style="${bs}">🔌 পরীক্ষা</button><button data-adm="close" style="${bs}">✕ বন্ধ</button></span></div>`;
  function login(msg){o.innerHTML=head+`<p>অ্যাডমিন ইমেইল আর পাসওয়ার্ড দিন</p><input id="adE" type="email" placeholder="Email" style="${is}"><input id="adP" type="password" placeholder="Password" style="${is}"><button data-adm="login" style="${bs}">লগইন</button><p style="color:#c33">${x(msg||"")}</p>`}
  async function load(){const r=await fetch(`${SB_URL}/rest/v1/names?select=id,type,name,created_at&status=eq.pending&order=created_at.asc&limit=200`,{headers:sbH(tok)}).catch(()=>null);if(!r||r.status===401||r.status===403){tok="";sessionStorage.removeItem("cvadm");return login("সেশন শেষ, আবার লগইন করুন")}if(!r.ok)return login("লোড হয়নি, আবার চেষ্টা করুন");const a=await r.json();
   o.innerHTML=head+`<p>অপেক্ষায় আছে: <b>${a.length}</b> টি নাম</p>`+a.map(v=>`<div style="border:1px solid #8886;border-radius:10px;padding:10px;margin:8px 0"><small>${TL[v.type]||v.type}</small><div style="font-size:17px;margin:4px 0">${x(v.name)}</div><button data-adm="ok" data-id="${v.id}" style="${bs}">✓ অনুমোদন</button><button data-adm="edit" data-id="${v.id}" data-n="${x(v.name)}" style="${bs}">✎ ঠিক করুন</button><button data-adm="del" data-id="${v.id}" style="${bs}">✕ মুছুন</button></div>`).join("")+`<hr><b>নিজে নাম যোগ করুন (সরাসরি অনুমোদিত)</b><select id="adT" style="${is}">${Object.keys(TL).map(k=>`<option value="${k}">${TL[k]}</option>`).join("")}</select><input id="adN" placeholder="নাম" style="${is}"><button data-adm="add" style="${bs}">+ যোগ করুন</button>`}
  async function call(m,path,body){const r=await fetch(`${SB_URL}/rest/v1/names${path}`,{method:m,headers:Object.assign(sbH(tok),{Prefer:"return=minimal"}),body:body?JSON.stringify(body):undefined}).catch(()=>null);return r&&r.ok}
  o.addEventListener("click",async e=>{const b=e.target.closest("[data-adm]");if(!b)return;const a=b.dataset.adm,id=b.dataset.id;
-  if(a==="close"){o.remove();history.replaceState(null,"",location.pathname+location.search);return}
+  if(a==="test"){const r=await fetch(`${SB_URL}/rest/v1/names?select=name,type&status=eq.approved&limit=5`,{headers:sbH()}).catch(e=>null);alert(r?("HTTP "+r.status+"\n"+(await r.text()).slice(0,300)):"নেটওয়ার্ক এরর");return}if(a==="close"){o.remove();history.replaceState(null,"",location.pathname+location.search);return}
   if(a==="login"){const r=await fetch(`${SB_URL}/auth/v1/token?grant_type=password`,{method:"POST",headers:sbH(),body:JSON.stringify({email:document.getElementById("adE").value.trim(),password:document.getElementById("adP").value})}).catch(()=>null);if(!r||!r.ok)return login("লগইন হয়নি, ইমেইল বা পাসওয়ার্ড ঠিক নেই");tok=(await r.json()).access_token;sessionStorage.setItem("cvadm",tok);return load()}
   if(a==="ok"){if(!await call("PATCH",`?id=eq.${id}`,{status:"approved"}))alert("হয়নি");return load()}
   if(a==="del"){if(!await call("DELETE",`?id=eq.${id}`))alert("হয়নি");return load()}
@@ -473,7 +473,7 @@ const localItems=(type,q)=>{const s=q.toLowerCase(),r=[];(getMem()[type]||[]).fo
  if(type==='ai')TOOLS.forEach(x=>{if(x[0].toLowerCase().includes(s))r.push({n:x[0],d:catName(x[1]),s:x[0].toLowerCase().startsWith(s)?1:1.5})});
  return r};
 async function webFind(type,q){const out=[];let ok=false;const jobs=[];
- jobs.push(sbFind(type,q).then(a=>{ok=true;a.forEach(n=>out.push({n,d:t().srcShared,s:0}))}).catch(()=>{}));
+ jobs.push(sbFind(type,q).then(a=>{ok=true;a.forEach(n=>out.push({n,d:t().srcShared,s:-1}))}).catch(()=>{}));
  (type==="pos"||type==="ai"?[]:["en","bn"]).forEach(l=>jobs.push(fetch(`https://www.wikidata.org/w/api.php?action=wbsearchentities&search=${encodeURIComponent(q)}&language=${l}&uselang=${l}&type=item&limit=6&format=json&origin=*`,{signal:AbortSignal.timeout(6000)}).then(r=>r.json()).then(j=>{ok=true;(j.search||[]).forEach(x=>out.push({n:x.label,d:t().srcWeb+(x.description?" · "+x.description:""),s:2}))}).catch(()=>{})));
  await Promise.all(jobs);return{items:out,ok}}
 const mergeNames=a=>{const seen=new Set(),o=[];a.slice().sort((x,y)=>x.s-y.s).forEach(x=>{const k=(x.n||"").toLowerCase();if(x.n&&!seen.has(k)){seen.add(k);o.push(x)}});return o.slice(0,8)};
@@ -694,7 +694,7 @@ function score(){
  const L=t(),x=[["name",S.name,10],["role",headTitle(S),10],["email",S.email,10],["phone",S.phone,5],["sum",S.sum.length>=80,15],["exp",S.lvl==="fresher"||(S.exp.some(e=>(e.org||e.pos)&&e.desc)&&!S.exp.some(expBad)),20],["edu",S.edu.some(e=>e.inst||e.deg)&&!S.edu.some(eduBad),10],["sk",S.sk.length>=5,15],["photo",S.photo,5]];
  let p=0;const miss=[];x.forEach(([k,ok,w])=>ok?p+=w:miss.push(k));
  $("pc").textContent=p+"%";$("arc").setAttribute("stroke-dasharray",p+" 100");
- $("tips").innerHTML=miss.length?miss.slice(0,3).map(k=>`<li>${L.tip[k]}</li>`).join(""):`<li class="good">${L.done}</li>`;
+ $("tips").innerHTML=miss.length?miss.slice(0,3).map(k=>`<li>${L.tip[k]}</li>`).join(""):`<li class="good">${L.done}</li>`;atsCheck();kwRun();clLabels();
 }
 function render(){
  const L=t(),c=S,ul=a=>a.length?`<div class="tg">${a.map(x=>`<em>${esc(x)}</em>`).join("")}</div>`:"";
@@ -760,6 +760,109 @@ function fit(){
  if(s<1)el.style.transform=`scale(${s})`;
  w.style.height=(el.offsetHeight*s)+"px";
 }
+function atsCheck(){
+ const bn=S.lang==="bn",c=S,fr=c.lvl==="fresher";
+ const mail=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test((c.email||"").trim());
+ const ph=(c.phone||"").replace(/\D/g,"").length>=10;
+ const ex=c.exp.filter(e=>e.org||e.pos);
+ const items=[
+  [!!(c.name&&c.name.trim()),bn?"নাম লেখা আছে":"Your name is filled in",bn?"নাম লিখুন":"Add your name"],
+  [mail&&ph,bn?"ইমেইল ও ফোন নম্বর ঠিক আছে":"Valid email and phone number",bn?"সঠিক ইমেইল ও ফোন নম্বর দিন, সফটওয়্যার এখান থেকেই যোগাযোগ নেয়":"Add a valid email and phone, software reads contact details from here"],
+  [!!(c.role&&c.role.trim())||!!(typeof headTitle==="function"&&headTitle(c)),bn?"পদ বা লক্ষ্য লেখা আছে":"Job title or target role is filled in",bn?"কাঙ্ক্ষিত পদের নাম লিখুন":"Add the job title you are applying for"],
+  [(c.sum||"").trim().length>=80,bn?"সারসংক্ষেপ যথেষ্ট বড়":"Summary is long enough",bn?"সারসংক্ষেপে অন্তত ২ লাইন লিখুন":"Write at least two lines in the summary"],
+  [fr||(ex.length>0&&ex.every(e=>(e.desc||"").trim().length>=15)),bn?"অভিজ্ঞতায় কাজের বিবরণ আছে":"Work entries describe what you did",bn?"প্রতিটি অভিজ্ঞতায় কী কাজ করেছেন লিখুন":"Describe what you did in every work entry"],
+  [c.edu.some(e=>e.inst||e.deg),bn?"শিক্ষার তথ্য আছে":"Education is filled in",bn?"শিক্ষার তথ্য যোগ করুন":"Add your education"],
+  [c.sk.length>=5,bn?"৫টি বা বেশি দক্ষতা আছে":"Five or more skills listed",bn?"অন্তত ৫টি দক্ষতা যোগ করুন, কীওয়ার্ড মেলাতে কাজে লাগে":"List at least five skills, they help keyword matching"],
+  [c.tpl!=="side",bn?"টেমপ্লেট এক কলামের, সফটওয়্যার সহজে পড়ে":"Single column template, easy for software to read",bn?"সাইডবার টেমপ্লেটে দুই কলাম থাকে, ATS-এর জন্য সাদামাটা বা বোল্ড নিন":"Sidebar has two columns, pick Minimal or Bold for ATS"]
+ ];
+ const ok=items.filter(i=>i[0]).length;
+ $("atsS").textContent=(bn?"ATS চেক: ":"ATS check: ")+ok+"/"+items.length;
+ $("atsL").innerHTML=items.map(i=>`<li><i>${i[0]?"\u2705":"\u26a0\ufe0f"}</i><span>${i[0]?i[1]:i[2]}</span></li>`).join("");
+ $("atsN").textContent=bn?"PDF বানাতে 'প্রিন্ট করে PDF' বাটন নিন, তাতে লেখা সিলেক্ট করা যায় আর সফটওয়্যার পড়তে পারে।":"For the PDF use the print to PDF button, so the text stays selectable for software.";
+}
+const KW_STOP=new Set("the and for with that this are was were will would can could should may might must have has had having been being from into onto over under than then them they their there these those who whom whose what when where which while about above after again all also any because before between both but each few more most other some such only own same too very just our out off its his her she him you your yours not nor per via etc job jobs role roles position positions candidate candidates applicant applicants required require requires requirement requirements responsibilities responsibility duties duty ability able skill skills strong good excellent knowledge experience experienced years year least minimum preferred plus well work working works worked team company salary apply application email send resume cv deadline vacancy vacancies looking seeking join full time part including include includes related relevant etc new use using used make making help ensure support provide provides providing within across able need needs needed আমরা আমি আপনি তুমি তারা তিনি একজন একটি একটা এক দুই তিন খুঁজছি খুঁজছেন থাকতে থাকলে থাকা থাকবে হলে হওয়া হতে চাই চাইছি অগ্রাধিকার প্রয়োজন প্রয়োজনীয় সম্পর্কে নিয়োগ বিজ্ঞপ্তি আবশ্যক অবশ্যই ভালো ভাল বেশি কম পারদর্শী লক্ষ্য পূরণ বা ও এবং এর এই সেই যে যা যার জন্য থেকে হবে হয় হয়ে আছে নেই না করা করে করতে করার কোনো কিছু সব সকল অন্য আর তবে কিন্তু যদি তাহলে দ্বারা মধ্যে পর্যন্ত সাথে সঙ্গে প্রতি বছর বছরের অভিজ্ঞতা দক্ষতা প্রার্থী চাকরি পদ পদের আবেদন আবেদনের যোগ্যতা দায়িত্ব বেতন কোম্পানি প্রতিষ্ঠান".split(" "));
+const KW_SHORT=new Set(["ui","ux","hr","qa","pr","it","js","ai","bi","c#","c++","sql","seo","erp","crm","b2b","b2c"]);
+function kwWords(txt){
+ const toks=(String(txt).toLowerCase().match(/[\p{L}\p{M}\p{N}+#]+/gu)||[]).map(w=>w.replace(/^[+#]+|[+#]+$/g,m=>/^c/.test(w)?m:""));
+ const cnt=new Map();let i=0;
+ toks.forEach(w=>{if(!w)return;if(KW_STOP.has(w))return;const lat=/^[a-z0-9+#]+$/.test(w);if(lat?(w.length<3&&!KW_SHORT.has(w)):w.length<3)return;if(/^\d+$/.test(w))return;const e=cnt.get(w);if(e)e.n++;else cnt.set(w,{n:1,i:i++})});
+ return[...cnt.entries()].sort((a,b)=>b[1].n-a[1].n||a[1].i-b[1].i).slice(0,14).map(e=>e[0]);
+}
+function kwCvText(){const c=S;return[c.role,c.sum,(c.sk||[]).join(" "),(c.ai||[]).map(x=>x&&(x.t||x.n||"")).join(" "),(c.hb||[]).join(" "),...c.exp.map(e=>[e.pos,e.org,e.desc].join(" ")),...c.edu.map(e=>[e.inst,e.deg,e.sub].join(" ")),...c.cert.map(x=>[x.t,x.o].join(" ")),...c.prj.map(x=>[x.t,x.r,x.d].join(" ")),...c.aw.map(x=>x.t),...c.act.map(x=>[x.t,x.r,x.o,x.d].join(" "))].join(" ").toLowerCase()}
+function kwHas(txt,w){const e=w.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");return new RegExp("(^|[^\\p{L}\\p{M}\\p{N}])"+e+(w.length<4?"(?=$|[^\\p{L}\\p{M}\\p{N}])":""),"u").test(txt)}
+function kwRun(){
+ const bn=S.lang==="bn",T=$("kwT"),R=$("kwR");if(!T||!R)return;
+ $("kwS").textContent=bn?"চাকরির বিজ্ঞপ্তির সাথে মেলান":"Match with a job notice";
+ T.placeholder=bn?"চাকরির বিজ্ঞপ্তির লেখা এখানে পেস্ট করুন":"Paste the job notice text here";
+ const v=T.value.trim();if(!v){R.innerHTML="";return}
+ const ws=kwWords(v);
+ if(ws.length<3){R.innerHTML=`<p class="nt">${bn?"আরও বড় অংশ পেস্ট করুন, কীওয়ার্ড বের করা যাচ্ছে না।":"Paste a longer part, not enough keywords found."}</p>`;return}
+ const cv=kwCvText(),hit=ws.filter(w=>kwHas(cv,w)),miss=ws.filter(w=>!hit.includes(w)),pct=Math.round(hit.length/ws.length*100);
+ const ch=(a,c,ic)=>a.length?`<div class="kwc">${a.map(w=>`<span class="${c}">${ic} ${esc(w)}</span>`).join("")}</div>`:"";
+ R.innerHTML=`<p><b>${hit.length}/${ws.length}</b> ${bn?"কীওয়ার্ড মিলেছে":"keywords matched"} (${pct}%)</p>`+(hit.length?`<small>${bn?"আপনার CV-তে আছে":"In your CV"}</small>`+ch(hit,"m","\u2705"):"")+(miss.length?`<small>${bn?"CV-তে নেই":"Missing from your CV"}</small>`+ch(miss,"x","\u26a0\ufe0f")+`<p class="nt">${bn?"যেগুলো সত্যিই আপনার আছে শুধু সেগুলোই দক্ষতা বা অভিজ্ঞতায় যোগ করুন। লেখাটা কোথাও পাঠানো হয় না।":"Add only the ones that are really true for you, in skills or work details. The text is never sent anywhere."}</p>`:"");
+}
+document.addEventListener("input",e=>{if(e.target.id==="kwT")kwRun()});
+function clLabels(){
+ const bn=S.lang==="bn";if(!$("clS"))return;
+ $("clS").textContent=bn?"কভার লেটার বানান":"Write a cover letter";
+ $("clC").placeholder=bn?"কোম্পানির নাম (যেখানে আবেদন করছেন)":"Company you are applying to";
+ $("clP").placeholder=bn?"পদের নাম (খালি রাখলে CV-র পদ বসবে)":"Position (blank uses your CV title)";
+ $("clT").placeholder=bn?"'চিঠি সাজান' চাপুন, তারপর নিজের মতো বদলে নিন":"Press Write letter, then edit it your way";
+ $("clG").textContent=bn?"চিঠি সাজান":"Write letter";
+ if(!$("clCp").dataset.busy)$("clCp").textContent=bn?"কপি করুন":"Copy";
+ $("clDl").textContent=bn?"ডাউনলোড (.txt)":"Download (.txt)";
+ const M=$("clM"),cur=M.value||"f",o=bn?[["f","আনুষ্ঠানিক সুর"],["c","আত্মবিশ্বাসী সুর"],["s","সহজ ও সরল সুর"]]:[["f","Formal tone"],["c","Confident tone"],["s","Simple tone"]];
+ if(M.dataset.l!==S.lang){M.innerHTML=o.map(x=>`<option value="${x[0]}">${x[1]}</option>`).join("");M.value=cur;M.dataset.l=S.lang}
+}
+const CL_LAST={};
+function clPick(k,a){let i=Math.floor(Math.random()*a.length);if(a.length>1&&CL_LAST[k]===i)i=(i+1+Math.floor(Math.random()*(a.length-1)))%a.length;CL_LAST[k]=i;return a[i]}
+function clBuild(){
+ const bn=S.lang==="bn",c=S,co=($("clC").value||"").trim(),tn=$("clM").value||"f";
+ const P=($("clP").value||"").trim()||(typeof headTitle==="function"&&headTitle(c))||c.role||"";
+ const ph=c.phone?c.cc+" "+c.phone.replace(/^0+/,""):"";
+ const sk=(c.sk||[]).filter(Boolean).sort(()=>Math.random()-.5).slice(0,4);
+ const ex=c.lvl==="fresher"?null:c.exp.find(e=>e.org||e.pos);
+ const ed=c.edu.find(e=>e.inst||e.deg);
+ const edT=ed?[ed.deg,ed.inst].filter(Boolean).join(", "):"";
+ const ls=ex?(ex.desc||"").split("\n").map(x=>x.trim()).filter(Boolean):[];
+ const l0=ls.length?clPick("line",ls):"";const L=l0&&(/[.।!?]$/.test(l0)?l0:l0+(bn?"।":"."));
+ const join=a=>a.length<2?a.join(""):a.slice(0,-1).join(", ")+(bn?" ও ":" and ")+a[a.length-1];
+ const J=join(sk);
+ let H="";const nt=($("kwT").value||"").trim();
+ if(nt){const cv=kwCvText(),hit=kwWords(nt).filter(w=>kwHas(cv,w)).slice(0,3);if(hit.length)H=join(hit)}
+ const V=(k,o)=>clPick(k+tn,o[tn]);const out=[];
+ if(bn){
+  const CF=co?co+"-এর":"আপনাদের প্রতিষ্ঠানের",CL=co?co+"-এ":"আপনাদের প্রতিষ্ঠানে",PP=P?P+" পদে":"উল্লিখিত পদে";
+  const O=ex&&ex.org?ex.org+"-এ ":"",X=ex&&ex.pos?ex.pos+" হিসেবে ":"";const Ld=L?" "+clPick("ld",["আমার দায়িত্বের মধ্যে ছিল: ","আমার কাজের একটি অংশ ছিল: "])+L:"";
+  out.push(clPick("sub",[`বিষয়: ${P?P+" পদে ":""}আবেদন`,`আবেদন: ${P||"পদের জন্য"}${co?" – "+co:""}`]));
+  out.push(clPick("gr",["প্রিয় নিয়োগকর্তা,","সম্মানিত নিয়োগ কমিটি,"]));
+  out.push(V("op",{f:[`${CF} ${PP} আবেদন করতে আমি আগ্রহী। অনুগ্রহ করে আমার আবেদনটি বিবেচনার জন্য গ্রহণ করুন।`,`${CL} ${PP} নিয়োগের সুযোগ দেখে আমি আবেদন করছি। নিচে আমার সংক্ষিপ্ত পরিচয় ও যোগ্যতা তুলে ধরলাম।`],c:[`${CF} ${PP} যে সুযোগ রয়েছে, তা আমার অভিজ্ঞতা ও লক্ষ্যের সঙ্গে ভালোভাবে মেলে। তাই আমি আত্মবিশ্বাসের সঙ্গে আবেদন করছি।`,`${CL} ${PP} যুক্ত হওয়ার সুযোগ আমার কাছে অত্যন্ত আগ্রহের। আমি বিশ্বাস করি আমি সেখানে কার্যকর অবদান রাখতে পারব।`],s:[`আমি ${CF} ${PP} আবেদন করছি।`,`${CL} ${PP} আমি আমার আবেদন জানাচ্ছি।`]}));
+  if(ex&&(ex.org||ex.pos))out.push(V("ex",{f:[`আমি ${O}${X}কাজ করার অভিজ্ঞতা অর্জন করেছি।${Ld}`,`আমার পেশাগত অভিজ্ঞতার মধ্যে রয়েছে ${O}${X}দায়িত্ব পালন।${Ld}`],c:[`সর্বশেষ ${O}${X}কাজ করার সময় আমি বাস্তব ফলাফল আনার দিকে মনোযোগ দিয়েছি।${Ld}`,`${O}${X}আমার কাজের অভিজ্ঞতা এই পদের জন্য আমাকে ভালোভাবে প্রস্তুত করেছে।${Ld}`],s:[`আমি ${O}${X}কাজ করেছি।${Ld}`,`আমার কাজের অভিজ্ঞতা: ${[ex.pos,ex.org].filter(Boolean).join(", ")}।${Ld}`]}));
+  else if(edT)out.push(V("ed",{f:[`আমার শিক্ষাগত যোগ্যতা: ${edT}।`,`আমার শিক্ষাগত যোগ্যতা হলো ${edT}। কাজ শেখার ও দায়িত্ব নেওয়ার আগ্রহ আমার আছে।`],c:[`আমার একাডেমিক পটভূমি: ${edT}। নতুন কিছু শেখা ও দ্রুত কাজে লাগানোর ক্ষমতা আমার শক্তির জায়গা।`],s:[`আমার শিক্ষাগত যোগ্যতা: ${edT}।`]}));
+  if(sk.length)out.push(V("sk",{f:[`আমার প্রধান দক্ষতার মধ্যে রয়েছে ${J}।`,`আমি বিশেষভাবে ${J} বিষয়ে দক্ষ।`],c:[`এই দায়িত্বে আমার যে দক্ষতাগুলো কাজে লাগবে: ${J}।`,`আমার শক্তির জায়গা হলো ${J}।`],s:[`আমার দক্ষতা: ${J}।`,`আমি ${J} নিয়ে কাজ করতে পারি।`]}));
+  if(H)out.push(clPick("nt",[`আপনাদের বিজ্ঞপ্তিতে ${H} উল্লেখ আছে, এই বিষয়গুলোতে আমার অভিজ্ঞতা বা দক্ষতা আছে।`,`বিজ্ঞপ্তির চাহিদার মধ্যে ${H} বিশেষভাবে আমার কাজের ক্ষেত্রের সঙ্গে মেলে।`]));
+  out.push(V("cl",{f:["আমার CV সংযুক্ত করা হলো। সাক্ষাৎকারের সুযোগ পেলে আমি কৃতজ্ঞ থাকব।","আমার CV এই চিঠির সঙ্গে সংযুক্ত করেছি। আপনাদের সুবিধামতো সময়ে সাক্ষাৎকারে অংশ নিতে আমি প্রস্তুত।"],c:["আমি বিশ্বাস করি এই দায়িত্বে আমি ভালো ফল দিতে পারব। সাক্ষাৎকারে বিস্তারিত আলোচনার সুযোগ পেলে খুশি হব।","সাক্ষাৎকারে আমি কীভাবে অবদান রাখতে পারি, তা বিস্তারিত বলার সুযোগ পেলে আমি আনন্দিত হব। CV সংযুক্ত করা হলো।"],s:["CV সংযুক্ত করলাম। সুযোগ পেলে সাক্ষাৎকারে কথা বলতে চাই।","আমার CV সংযুক্ত আছে। আপনাদের সময়ের জন্য ধন্যবাদ।"]}));
+  out.push([clPick("so",["ধন্যবাদান্তে,","বিনীত,","আন্তরিক শুভেচ্ছাসহ,"]),c.name,ph,c.email].filter(Boolean).join("\n"));
+ }else{
+  const CF=co||"your company",PP=P?"the position of "+P:"the open position";
+  const base=(ex&&ex.pos?" as "+ex.pos:"")+(ex&&ex.org?" at "+ex.org:"");const Ld=L?" "+clPick("ld",["My responsibilities included: ","Part of my work was: "])+L:"";
+  out.push(clPick("sub",[`Subject: Application${P?" for "+P:""}`,`Application: ${P||"Open position"}${co?" – "+co:""}`]));
+  out.push(clPick("gr",["Dear Hiring Manager,","Dear Hiring Team,"]));
+  out.push(V("op",{f:[`I am writing to apply for ${PP} at ${CF}. Please find my application below for your consideration.`,`I am applying for ${PP} at ${CF}, and I have outlined my background and qualifications below.`],c:[`The opportunity${P?" as "+P:""} at ${CF} fits my experience and goals closely, and I am applying with confidence.`,`Joining ${CF}${P?" as "+P:""} is an opportunity I am keen on, and I believe I can make a real contribution.`],s:[`I would like to apply for ${PP} at ${CF}.`,`Please accept my application for ${PP} at ${CF}.`]}));
+  if(ex&&(ex.org||ex.pos))out.push(V("ex",{f:[`I have professional experience${base}.${Ld}`,`My background includes work${base}, which has prepared me for this role.${Ld}`],c:[`Most recently${base?", working"+base:""}, I focused on delivering measurable results.${Ld}`,`My experience${base} has prepared me well for this position.${Ld}`],s:[`I have worked${base}.${Ld}`,`Experience: ${[ex.pos,ex.org].filter(Boolean).join(", ")}.${Ld}`]}));
+  else if(edT)out.push(V("ed",{f:[`My education: ${edT}.`,`My academic background is ${edT}. I am eager to learn and take responsibility.`],c:[`My academic background is ${edT}. I learn quickly and apply new skills right away.`],s:[`My education: ${edT}.`]}));
+  if(sk.length)out.push(V("sk",{f:[`My key skills include ${J}.`,`I am particularly skilled in ${J}.`],c:[`These skills will be directly useful in this role: ${J}.`,`My strengths are ${J}.`],s:[`My skills: ${J}.`,`I can work with ${J}.`]}));
+  if(H)out.push(clPick("nt",[`Your notice mentions ${H}, and I have experience or skills in these areas.`,`Among the requirements, ${H} closely match my field of work.`]));
+  out.push(V("cl",{f:["My CV is attached. I would be grateful for an opportunity to interview.","I have attached my CV and am available for an interview at your convenience."],c:["I am confident I can deliver good results in this role and would welcome a chance to discuss it in detail.","I would be glad to discuss in an interview how I can contribute. My CV is attached."],s:["My CV is attached. I would like to talk with you in an interview.","Attached is my CV. Thank you for your time."]}));
+  out.push([clPick("so",["Sincerely,","Best regards,","Kind regards,"]),c.name,ph,c.email].filter(Boolean).join("\n"));
+ }
+ return out.join("\n\n");
+}
+document.addEventListener("click",async e=>{const b=e.target.closest("button");if(!b)return;
+ if(b.id==="clG")$("clT").value=clBuild();
+ else if(b.id==="clCp"){const v=$("clT").value;if(!v)return;try{await navigator.clipboard.writeText(v)}catch(x){$("clT").select();document.execCommand("copy")}b.dataset.busy=1;b.textContent=S.lang==="bn"?"\u2713 কপি হয়েছে":"\u2713 Copied";setTimeout(()=>{delete b.dataset.busy;clLabels()},1500)}
+ else if(b.id==="clDl"){const v=$("clT").value;if(!v)return;const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([v],{type:"text/plain;charset=utf-8"}));a.download="cover-letter.txt";document.body.appendChild(a);a.click();a.remove()}
+});
 function upd(){save();render()}
 document.addEventListener("input",e=>{
  const el=e.target,k=el.dataset.k;
