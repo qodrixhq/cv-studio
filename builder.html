@@ -16,7 +16,7 @@
 </header>
 <nav class="tabs"><a href="index.html" data-bn="হোম" data-en="Home"></a><a href="builder.html" class=on data-bn="CV বানান" data-en="Build CV"></a><a href="ats.html" data-bn="ATS ও কিওয়ার্ড" data-en="ATS and keywords"></a><a href="cover-letter.html" data-bn="কভার লেটার" data-en="Cover letter"></a><a href="guide.html" data-bn="গাইড" data-en="Guide"></a></nav>
 <main id="builder">
-<section class="ed">
+<section class="ed"><div class="xprog"><i id="xpi"></i></div>
  <div class="rail" id="rail"></div>
  <div class="pane on" data-s="0">
   <h2 class="q" id="q0"></h2><p class="sub" id="s0"></p>
@@ -78,5 +78,6 @@
 <footer data-bn="CV স্টুডিও · বাংলাদেশের জন্য বানানো" data-en="CV Studio · made for Bangladesh"></footer>
 <nav class="bar"><button class="on" data-v="e" id="b1"></button><button data-v="v" id="b2"></button></nav>
 <script src="app.js?v=2"></script>
+<script>(function(){var ps=[].slice.call(document.querySelectorAll(".pane")),b=document.getElementById("xpi");if(!ps.length||!b)return;function up(){var i=ps.findIndex(function(p){return p.classList.contains("on")});b.style.width=((i+1)/ps.length*100)+"%"}up();var mo=new MutationObserver(up);ps.forEach(function(p){mo.observe(p,{attributes:true,attributeFilter:["class"]})})})()</script>
 </body>
 </html>

@@ -15,12 +15,13 @@
  
 </header>
 <nav class="tabs"><a href="index.html" data-bn="হোম" data-en="Home"></a><a href="builder.html" data-bn="CV বানান" data-en="Build CV"></a><a href="ats.html" class=on data-bn="ATS ও কিওয়ার্ড" data-en="ATS and keywords"></a><a href="cover-letter.html" data-bn="কভার লেটার" data-en="Cover letter"></a><a href="guide.html" data-bn="গাইড" data-en="Guide"></a></nav>
-<section class="tool"><h2 data-bn="ATS ও কিওয়ার্ড চেক" data-en="ATS and keyword check"></h2>
+<section class="tool"><div class="phd"><i class="phi"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg></i><h2 data-bn="ATS ও কিওয়ার্ড চেক" data-en="ATS and keyword check"></h2></div>
 <p class="sub" data-bn="আপনার সেভ করা CV থেকে চেক হয়। CV না থাকলে আগে বানিয়ে নিন।" data-en="Checks run on your saved CV. Build a CV first if you have none."></p>
-<div class="tl"><a class="btn" href="builder.html" data-bn="CV বানান বা বদলান" data-en="Build or edit CV"></a></div>
+<div class="xsc"><svg width="62" height="62" viewBox="0 0 64 64" aria-hidden="true"><circle class="t" cx="32" cy="32" r="26" fill="none" stroke-width="7"/><circle class="v" id="xsr" cx="32" cy="32" r="26" fill="none" stroke-width="7" stroke-linecap="round" transform="rotate(-90 32 32)"/><text x="32" y="37" text-anchor="middle" id="xsp"></text></svg><div><b data-bn="ATS স্কোর" data-en="ATS score"></b><small id="xst"></small></div><a class="btn" href="builder.html" data-bn="ঠিক করুন" data-en="Improve"></a></div>
 <details open id="ats" class="atsb"><summary id="atsS"></summary><ul id="atsL"></ul><p class="nt" id="atsN"></p></details><details open id="kw" class="atsb"><summary id="kwS"></summary><textarea id="kwT" class="kwt"></textarea><div id="kwR"></div></details></section><div id="toast"></div>
 <div class="pv"><a class="btn" href="privacy.html" data-bn="গোপনীয়তা নীতি" data-en="Privacy policy"></a></div>
 <footer data-bn="CV স্টুডিও · বাংলাদেশের জন্য বানানো" data-en="CV Studio · made for Bangladesh"></footer>
 <script src="app.js?v=2"></script>
+<script>(function(){try{var m=document.getElementById("atsS").textContent.match(/(\d+)\s*\/\s*(\d+)/);if(!m)return;var r=m[1]/m[2];document.getElementById("xsp").textContent=Math.round(r*100)+"%";document.getElementById("xst").textContent=m[1]+" / "+m[2];requestAnimationFrame(function(){requestAnimationFrame(function(){document.getElementById("xsr").style.strokeDashoffset=163.4*(1-r)})})}catch(e){}})()</script>
 </body>
 </html>
