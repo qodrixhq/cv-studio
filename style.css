@@ -364,3 +364,45 @@ input[type=range]{min-height:0;padding:0}input[type=file]{min-height:0;padding:1
 .nav{gap:10px}.nav #back{min-width:96px}.nav #next{flex:1;min-height:54px;font-size:17px}
 @media(max-width:959px){.nav{position:sticky;bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:5;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:10px;margin-top:14px;box-shadow:0 10px 24px rgba(15,23,42,.12)}}
 @media(prefers-reduced-motion:reduce){.xsv{animation:none!important;opacity:1!important}}
+
+/* ===== v5: match artifact design (templates, preview, export) ===== */
+.tpls{grid-template-columns:1fr 1fr;gap:16px 14px;margin-top:4px}
+.tp{position:relative;background:transparent;border:0;padding:0;text-align:left;display:flex;flex-direction:column;gap:4px;font-size:15px;font-weight:600;color:var(--ink);min-height:44px;opacity:0;animation:xfu .5s cubic-bezier(.2,.7,.2,1) forwards}
+.tp:nth-child(2){animation-delay:.08s}.tp:nth-child(3){animation-delay:.16s}.tp:nth-child(n+4){animation-delay:.24s}
+.tp svg{width:100%;height:150px;border-radius:12px;background:#fff;border:1px solid var(--line);margin:0 0 4px}
+.tp small{font-size:13px;color:var(--mute);font-weight:400}
+.tp.on{border:0}.tp.on svg{outline:2px solid var(--brand);outline-offset:3px;border-color:transparent;animation:xring 2.4s 1s ease-in-out infinite}
+.tp.on::after{content:"\2713";position:absolute;top:8px;right:8px;width:24px;height:24px;border-radius:50%;background:var(--brand);color:var(--bi);font-size:14px;display:flex;align-items:center;justify-content:center;animation:xpop .4s cubic-bezier(.3,1.4,.5,1)}
+@keyframes xring{50%{outline-offset:6px}}
+.sw{gap:10px}.sw button{width:44px;height:44px;border-width:3px}.sw button.on{box-shadow:0 0 0 2.5px var(--brand)}
+.xmore{margin:16px 0 4px}
+.score{background:#0F1A30;color:#fff;border:1px solid #1E2A44;border-radius:20px;padding:14px 16px}
+@media(prefers-color-scheme:dark){.score{background:#111A2E}}
+.score .ring b{color:#fff}.score circle:first-child{stroke:#1E2A44}.score #arc{stroke:#60A5FA;transition:stroke-dasharray .9s cubic-bezier(.2,.7,.2,1)}
+.score h4{color:#fff}.score .tips,.score .tips li{color:#94A3B8}
+.stage .tl{gap:10px}.stage .tl a{min-height:44px;padding:0 16px}
+#wrap{margin:14px;box-shadow:0 0 0 14px #E2E8F0;border-radius:6px}
+@media(prefers-color-scheme:dark){#wrap{box-shadow:0 0 0 14px #16233F}}
+.xexp{display:none}
+@media(max-width:959px){body[data-v=v] .xexp{display:flex;position:fixed;left:12px;right:12px;bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:6;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:10px;box-shadow:0 10px 24px rgba(15,23,42,.14)}body[data-v=v] .xexp .btn{min-height:54px;font-size:17px}body[data-v=v] .xexp .p{flex:1}body[data-v=v] #builder{padding-bottom:170px}}
+@media(min-width:960px){.stage{position:sticky;top:84px;align-self:start;max-height:calc(100vh - 100px);overflow:auto}}
+@media(prefers-reduced-motion:reduce){.tp,.tp.on svg,.tp.on::after{animation:none!important;opacity:1!important}}
+
+/* ===== v6: desktop layout like design, validation, page transitions ===== */
+@view-transition{navigation:auto}
+@media(prefers-reduced-motion:reduce){@view-transition{navigation:none}}
+.xerr{color:#DC2626;font-size:13px;font-weight:500;margin-top:6px}.xerr[hidden]{display:none}
+@media(prefers-color-scheme:dark){.xerr{color:#F87171}}
+@media(min-width:960px){
+#builder{grid-template-columns:minmax(0,1fr) 440px;max-width:1400px;gap:22px;padding-bottom:40px}
+.ed{display:grid;grid-template-columns:220px minmax(0,1fr);column-gap:22px;align-items:start}
+.xbh{grid-column:1/-1}
+.rail{grid-column:1;grid-row:2/span 30;flex-direction:column;overflow:visible;position:sticky;top:84px;gap:6px;padding:0}
+.pill{font-size:15px;gap:12px;padding:6px 14px 6px 8px;min-height:46px;justify-content:flex-start;width:100%;border-radius:12px}
+.pill.on{font-size:15px}
+.pane,.nav{grid-column:2}
+.stage{background:color-mix(in srgb,var(--line) 65%,transparent);border-radius:22px;padding:18px}
+#wrap{margin:0;box-shadow:none}
+}
+.row:has(>:only-child){grid-template-columns:minmax(0,1fr)!important}
+.row>div{min-width:0}

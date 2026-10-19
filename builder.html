@@ -53,13 +53,14 @@
   <h2 class="q" id="q6"></h2>
   <label id="l_tpl"></label><div class="tpls" id="tpls"></div>
   <label id="l_col"></label><div class="sw" id="sw"></div>
-  <label id="l_font"></label><select id="font"></select>
+  <details class="xmore"><summary data-bn="আরও কাস্টমাইজ (ফন্ট, ফটোর আকার, স্পেসিং)" data-en="More options (font, photo shape, spacing)"></summary><label id="l_font"></label><select id="font"></select>
   <label data-bn="ছবির স্টাইল" data-en="Photo style"></label>
   <div class="chips"><button class="chip" data-ps="ring" data-bn="অরবিট" data-en="Orbit"></button><button class="chip" data-ps="arch" data-bn="আর্চ" data-en="Arch"></button><button class="chip" data-ps="frame" data-bn="ফ্রেম" data-en="Frame"></button><button class="chip" data-ps="hex" data-bn="লিফ" data-en="Leaf"></button></div>
   <label data-bn="সেকশন সাজান (ব্লকে ট্যাপ করে বেছে সরান বা লুকান)" data-en="Arrange sections (tap a block, then move or hide it)"></label><div class="chips" id="pres"></div><div class="pgmap" id="pgmap"></div><div class="mapbar" id="mapBar"></div>
   <label data-bn="ঘনত্ব (লেখার ফাঁক)" data-en="Spacing"></label><div class="chips"><button class="chip" data-sp="c" data-bn="ঘন" data-en="Compact"></button><button class="chip" data-sp="n" data-bn="সাধারণ" data-en="Normal"></button><button class="chip" data-sp="r" data-bn="ফাঁকা" data-en="Relaxed"></button></div>
   <label data-bn="লেখার আকার" data-en="Text size"></label><div class="chips"><button class="chip" data-fz="s" data-bn="ছোট" data-en="Small"></button><button class="chip" data-fz="n" data-bn="সাধারণ" data-en="Normal"></button><button class="chip" data-fz="l" data-bn="বড়" data-en="Large"></button></div>
   <label class="ck"><input type="checkbox" data-fit><span data-bn="PDF-এ এক পেজে ফিট করো" data-en="Fit to one page in the PDF"></span></label>
+  </details>
   <button class="btn add" id="docx" data-bn="Word (.docx) ডাউনলোড" data-en="Download Word (.docx)"></button>
   <button class="btn add" id="prn" data-bn="প্রিন্ট করে PDF (লেখা সিলেক্ট করা যায়)" data-en="Print to PDF (selectable text)"></button>
   <button class="btn add" id="demo"></button>
@@ -76,8 +77,11 @@
 <div id="toast"></div>
 <div class="pv"><a class="btn" href="privacy.html" data-bn="গোপনীয়তা নীতি" data-en="Privacy policy"></a></div>
 <footer data-bn="CV স্টুডিও · বাংলাদেশের জন্য বানানো" data-en="CV Studio · made for Bangladesh"></footer>
+<div class="xexp"><button class="btn p" id="xpdf" data-bn="PDF নামান" data-en="Download PDF"></button><button class="btn" id="xdoc" data-bn="Word" data-en="Word"></button></div>
 <nav class="bar"><button class="on" data-v="e" id="b1"></button><button data-v="v" id="b2"></button></nav>
 <script src="app.js?v=2"></script>
 <script>(function(){var ps=[].slice.call(document.querySelectorAll(".pane")),$=function(i){return document.getElementById(i)};if(!ps.length||!$("xpi"))return;var q=0;function up(){q=0;var i=ps.findIndex(function(p){return p.classList.contains("on")});if(i<0)i=0;var h=ps[i].querySelector("h2.q"),s=ps[i].querySelector("h2.q + .sub");$("xbn").textContent=i+1;$("xbm").textContent=ps.length;$("xbq").textContent=h?h.textContent:"";$("xbp").textContent=s?s.textContent:"";$("xpi").style.width=((i+1)/ps.length*100)+"%"}function sch(){if(!q){q=1;requestAnimationFrame(up)}}up();var mo=new MutationObserver(sch);ps.forEach(function(p){mo.observe(p,{attributes:true,attributeFilter:["class"]});var h=p.querySelector("h2.q"),s=p.querySelector("h2.q + .sub");if(h)mo.observe(h,{childList:true,characterData:true,subtree:true});if(s)mo.observe(s,{childList:true,characterData:true,subtree:true})})})()</script>
+<script>(function(){var g=function(i){return document.getElementById(i)};g("xpdf").addEventListener("click",function(){g("pdf").click()});g("xdoc").addEventListener("click",function(){g("docx").click()})})()</script>
+<script>(function(){var e=document.getElementById("email");if(!e)return;var m=document.createElement("div");m.className="xerr";m.hidden=true;e.parentNode.insertBefore(m,e.nextSibling);var ok=function(v){return!v||/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)};e.addEventListener("blur",function(){var v=e.value.trim();e.classList.remove("bad");if(ok(v)){m.hidden=true}else{void e.offsetWidth;e.classList.add("bad");m.textContent=(typeof S!=="undefined"&&S.lang==="en")?"Add \u201c@\u201d and \u201c.\u201d, e.g. name@gmail.com":"\u0987\u09ae\u09c7\u0987\u09b2\u09c7 \u201c@\u201d \u0986\u09b0 \u201c.\u201d \u09a6\u09bf\u09a8, \u09af\u09c7\u09ae\u09a8 name@gmail.com";m.hidden=false}});e.addEventListener("input",function(){e.classList.remove("bad");m.hidden=true})})()</script>
 </body>
 </html>
