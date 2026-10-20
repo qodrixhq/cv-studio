@@ -619,3 +619,8 @@ body[data-v=v] .bar::before{transform:translateX(100%)}.bar button.on{background
 .cv.el .rl{color:var(--ac);letter-spacing:.12em;text-transform:uppercase;font-size:12.5px}
 .cv.el .cardx{background:transparent;border:0;border-top:1px solid #d5d8e3;border-radius:0;padding:14px 0 6px;margin:0}.cv.el h3{color:var(--ac);text-transform:uppercase;letter-spacing:.14em;font-size:12.5px}
 @media(prefers-reduced-motion:reduce){.tp,.tp.on .tpv{animation:none!important;opacity:1!important}.tpv{transition:none}}
+/* ===== v14: stop page-wide horizontal overflow (preview sheets are 794px wide) ===== */
+#wrap{overflow:hidden!important;position:relative}
+html,body{max-width:100%;overflow-x:clip}
+#wrap{contain:layout paint}
+#sheets{position:absolute;left:0;top:0}
