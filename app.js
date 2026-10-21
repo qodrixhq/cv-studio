@@ -511,16 +511,25 @@ function kwWords(txt){
 }
 function kwCvText(){const c=S;return[c.role,c.sum,(c.sk||[]).join(" "),(c.ai||[]).map(x=>x&&(x.t||x.n||"")).join(" "),(c.hb||[]).join(" "),...c.exp.map(e=>[e.pos,e.org,e.desc].join(" ")),...c.edu.map(e=>[e.inst,e.deg,e.sub].join(" ")),...c.cert.map(x=>[x.t,x.o].join(" ")),...c.prj.map(x=>[x.t,x.r,x.d].join(" ")),...c.aw.map(x=>x.t),...c.act.map(x=>[x.t,x.r,x.o,x.d].join(" "))].join(" ").toLowerCase()}
 function kwHas(txt,w){const e=w.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");return new RegExp("(^|[^\\p{L}\\p{M}\\p{N}])"+e+(w.length<4?"(?=$|[^\\p{L}\\p{M}\\p{N}])":""),"u").test(txt)}
+function kwItems(txt){
+ const segs=String(txt).split(/[\n\r.,;:|\u2022\u00b7\/()\[\]{}!?\u0964\u2013\u2014]+|\s-\s/),cnt=new Map();let i=0;
+ const ok=w=>{if(!w||KW_STOP.has(w)||/^\d+$/.test(w))return false;const lat=/^[a-z0-9+#]+$/.test(w);return lat?(w.length>=3||KW_SHORT.has(w)):w.length>=3};
+ const add=r=>{const k=r.join(" "),e=cnt.get(k);if(e)e.n++;else cnt.set(k,{n:1,i:i++})};
+ segs.forEach(sg=>{const toks=(sg.toLowerCase().match(/[\p{L}\p{M}\p{N}+#]+/gu)||[]).map(w=>w.replace(/^[+#]+|[+#]+$/g,m=>/^c/.test(w)?m:""));let run=[];
+  const flush=()=>{if(run.length){if(run.length<=3)add(run);else for(let k=0;k<run.length-1;k++)add([run[k],run[k+1]]);run=[]}};
+  toks.forEach(w=>{if(ok(w))run.push(w);else flush()});flush()});
+ return[...cnt.entries()].sort((a,b)=>b[1].n-a[1].n||a[1].i-b[1].i).slice(0,30).map(e=>e[0])}
+function kwHasP(txt,ws){const e=ws.map(w=>w.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")),L=ws[ws.length-1].length<4;return new RegExp("(^|[^\\p{L}\\p{M}\\p{N}])"+e.join("[^\\p{L}\\p{M}\\p{N}]+")+(L?"(?=$|[^\\p{L}\\p{M}\\p{N}])":""),"u").test(txt)}
 function kwRun(){
  const bn=S.lang==="bn",T=$("kwT"),R=$("kwR");if(!T||!R)return;
  $("kwS").textContent=bn?"চাকরির বিজ্ঞপ্তির সাথে মেলান":"Match with a job notice";
  T.placeholder=bn?"চাকরির বিজ্ঞপ্তির লেখা এখানে পেস্ট করুন":"Paste the job notice text here";
  const v=T.value.trim();if(!v){R.innerHTML="";return}
- const ws=kwWords(v);
+ const ws=kwItems(v);
  if(ws.length<3){R.innerHTML=`<p class="nt">${bn?"আরও বড় অংশ পেস্ট করুন, কীওয়ার্ড বের করা যাচ্ছে না।":"Paste a longer part, not enough keywords found."}</p>`;return}
- const cv=kwCvText(),hit=ws.filter(w=>kwHas(cv,w)),miss=ws.filter(w=>!hit.includes(w)),pct=Math.round(hit.length/ws.length*100);
+ const cv=kwCvText(),hit=[],part=[],miss=[];ws.forEach(it=>{const wd=it.split(" ");if(kwHasP(cv,wd))hit.push(it);else if(wd.length>1&&wd.every(x=>kwHas(cv,x)))part.push(it);else miss.push(it)});const pct=Math.round((hit.length+part.length*.5)/ws.length*100);
  const ch=(a,c,ic)=>a.length?`<div class="kwc">${a.map(w=>`<span class="${c}">${ic} ${esc(w)}</span>`).join("")}</div>`:"";
- R.innerHTML=`<div class="kwm"><div class="kwp">${pct}%<small>${hit.length}/${ws.length} ${bn?"কীওয়ার্ড মিলেছে":"keywords matched"}</small></div><div class="kwbar"><i style="width:${pct}%"></i></div></div>`+(miss.length?`<small>${bn?"CV-তে নেই":"Missing from your CV"}</small>`+ch(miss,"x","\u26a0\ufe0f")+`<p class="nt">${bn?"যেগুলো সত্যিই আপনার আছে শুধু সেগুলোই দক্ষতা বা অভিজ্ঞতায় যোগ করুন। লেখাটা কোথাও পাঠানো হয় না।":"Add only the ones that are really true for you, in skills or work details. The text is never sent anywhere."}</p>`:"")+(hit.length?`<small>${bn?"আপনার CV-তে আছে":"In your CV"}</small>`+ch(hit,"m","\u2705"):"");
+ R.innerHTML=`<div class="kwm"><div class="kwp">${pct}%<small>${hit.length}/${ws.length} ${bn?"কীওয়ার্ড মিলেছে":"keywords matched"}</small></div><div class="kwbar"><i style="width:${pct}%"></i></div></div>`+(miss.length?`<small>${bn?"CV-তে নেই":"Missing from your CV"}</small>`+ch(miss,"x","\u26a0\ufe0f")+`<p class="nt">${bn?"যেগুলো সত্যিই আপনার আছে শুধু সেগুলোই দক্ষতা বা অভিজ্ঞতায় যোগ করুন। লেখাটা কোথাও পাঠানো হয় না।":"Add only the ones that are really true for you, in skills or work details. The text is never sent anywhere."}</p>`:"")+(part.length?`<small>${bn?"শব্দগুলো আছে, কিন্তু একসাথে নেই — বাক্যাংশ হিসেবে লিখুন":"Words are there, but not together. Write them as a phrase"}</small>`+ch(part,"p","🟡"):"")+(hit.length?`<small>${bn?"আপনার CV-তে আছে":"In your CV"}</small>`+ch(hit,"m","\u2705"):"");
 }
 document.addEventListener("input",e=>{if(e.target.id==="kwT")kwRun()});
 function clLabels(){

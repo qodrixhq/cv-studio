@@ -632,3 +632,6 @@ html,body{max-width:100%;overflow-x:clip}
 .lgp{stroke-dasharray:420;stroke-dashoffset:420;animation:lgd 1.1s .1s cubic-bezier(.4,0,.2,1) forwards}.lgp+.lgp{animation-delay:.35s}
 @keyframes lgd{to{stroke-dashoffset:0}}
 @media(prefers-reduced-motion:reduce){.lgp{animation:none;stroke-dashoffset:0}}
+
+.kwc .p{background:#E0F2FE;color:#0369A1;border-color:transparent;animation:xpop .4s cubic-bezier(.3,1.4,.5,1) both}
+:root[data-theme=dark] .kwc .p{background:#0C2A3F;color:#7DD3FC}
