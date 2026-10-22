@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cv-studio.qodrix-hq.workers.dev/sitemap.xml
