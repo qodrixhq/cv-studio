@@ -321,7 +321,7 @@ function listAct(){const L=t(),y=new Date().getFullYear();$('acts').innerHTML=S.
  return `<div class="card"><button class="x" data-del="act" data-i="${i}">${L.del}</button><label>${L.actT}</label><input ${a} data-f="t" value="${esc(x.t)}"><label>${L.actO}</label><input ${a} data-f="o" value="${esc(x.o)}"><label>${L.actR}</label><input ${a} data-f="r" value="${esc(x.r)}"><label>${L.actY}</label><select ${a} data-f="y"><option value="">${L.yr}</option>${ys}</select><label>${L.actD}</label><textarea ${a} data-f="d">${esc(x.d)}</textarea></div>`}).join('')}
 function labels(){
  ccFill();fontFill();fillAddr();fillPi();listAllX();
- const L=t();document.documentElement.lang=S.lang;document.title=L.tt;
+ const L=t();document.documentElement.lang=S.lang;
  document.querySelectorAll("[data-bn]").forEach(e=>e.textContent=e.dataset[S.lang]);
  ["tt","pdf","lg","back","next","s0","s1","s2","s3","name","role","email","phone","addr","photo","sum","aExp","aEdu","aLg","aAct","aAi","demo","reset","sh"].forEach(k=>{const el=$(k)||$("l_"+k);if(el)el.textContent=L[k]});
  ["name","role","email","phone","addr","photo","sum"].forEach(k=>$("l_"+k).textContent=L[k]);
@@ -679,3 +679,81 @@ var x0=null,y0=0,t0=0;m.addEventListener("touchstart",function(e){var t=e.touche
 m.addEventListener("touchend",function(e){if(x0===null)return;var t=e.changedTouches[0],dx=t.clientX-x0,dy=t.clientY-y0;x0=null;if(getComputedStyle(document.querySelector(".bar")).display==="none")return;if(Math.abs(dx)<70||Math.abs(dx)<Math.abs(dy)*1.6||Date.now()-t0>700)return;if(e.target.closest&&e.target.closest("input,textarea,select,.rail,.chips,.sw,.tpls"))return;var pv=document.body.dataset.v==="v";if(dx<0&&!pv)b2.click();else if(dx>0&&pv)b1.click()},{passive:true})})();
 ;(function(){var ps=[].slice.call(document.querySelectorAll(".pane"));if(!ps.length)return;var cur=ps.findIndex(function(p){return p.classList.contains("on")});new MutationObserver(function(){var i=ps.findIndex(function(p){return p.classList.contains("on")});if(i<0||i===cur)return;var d=i>cur?1:-1;cur=i;if(ps[i].animate&&!matchMedia("(prefers-reduced-motion:reduce)").matches)ps[i].animate([{transform:"translateX("+d*56+"px)",opacity:0},{transform:"none",opacity:1}],{duration:380,easing:"cubic-bezier(.2,.8,.2,1)"})}).observe(document.querySelector("section.ed")||document.body,{attributes:true,attributeFilter:["class"],subtree:true})})();
 ;(function(){var n=document.querySelector(".bnav");if(!n)return;var y=window.scrollY,tk=0;window.addEventListener("scroll",function(){if(tk)return;tk=1;requestAnimationFrame(function(){var c=window.scrollY,d=c-y;if(Math.abs(d)>8){var h=d>0&&c>80;n.classList.toggle("hide",h);document.body.classList.toggle("bn-h",h);y=c}tk=0})},{passive:true})})();
+
+;(function(){
+/* ===== v15: PWA install button (Android one-tap, iPhone guide, hidden when installed) ===== */
+var dp=null,ua=navigator.userAgent||"",KEY="cvinst",last=null;
+var ios=/iPad|iPhone|iPod/.test(ua)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+var android=/Android/i.test(ua);
+var inApp=/FBAN|FBAV|FB_IAB|Instagram|Messenger|MicroMessenger|;\s?wv\)|\bLine\//i.test(ua);
+var pf=ios?"ios":android?"android":"desktop";
+var lang=function(){return document.documentElement.lang==="en"?"en":"bn"};
+var standalone=function(){try{return matchMedia("(display-mode: standalone)").matches||matchMedia("(display-mode: fullscreen)").matches||matchMedia("(display-mode: minimal-ui)").matches||navigator.standalone===true}catch(e){return false}};
+var flag=function(){try{return localStorage.getItem(KEY)==="1"}catch(e){return false}};
+var setFlag=function(v){try{if(v)localStorage.setItem(KEY,"1");else localStorage.removeItem(KEY)}catch(e){}};
+var each=function(q,f,r){[].forEach.call((r||document).querySelectorAll(q),f)};
+var txt=function(e){if(e.dataset&&e.dataset.bn)e.textContent=e.dataset[lang()]};
+var note=function(m){var t=document.getElementById("toast");if(!t)return;t.textContent=m;t.classList.add("on");setTimeout(function(){t.classList.remove("on")},3500)};
+
+/* header icon button (not on the builder, its header is already full) */
+(function(){var h=document.querySelector("header"),lg=document.getElementById("lg");if(!h||!lg||document.getElementById("builder")||document.getElementById("insH"))return;var b=document.createElement("button");b.type="button";b.className="btn ic ins-h";b.id="insH";b.hidden=true;b.setAttribute("data-ins","");b.innerHTML='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>';h.insertBefore(b,lg)})();
+
+function show(){return !standalone()&&!(flag()&&!dp)}
+function sync(){var s=show(),t=lang()==="en"?"Install app":"অ্যাপ ইনস্টল করুন";
+each("[data-ins],[data-insbox]",function(e){e.hidden=!s});
+each("[data-insdone]",function(e){e.hidden=s});
+var hb=document.getElementById("insH");if(hb){hb.setAttribute("aria-label",t);hb.title=t}}
+
+var SHARE='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3"/><path d="M8 7l4-4 4 4"/><path d="M6 11H5a1 1 0 00-1 1v8a1 1 0 001 1h14a1 1 0 001-1v-8a1 1 0 00-1-1h-1"/></svg>';
+var PLUS='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M12 8v8M8 12h8"/></svg>';
+var DOTS='<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>';
+function li(bn,en,ic){return '<li><span data-bn="'+bn+'" data-en="'+en+'"></span>'+(ic||"")+'</li>'}
+
+function modal(){var m=document.getElementById("insm");if(m)return m;
+m=document.createElement("div");m.className="xmod";m.id="insm";m.hidden=true;
+m.innerHTML='<div class="xsh" role="dialog" aria-modal="true" aria-labelledby="insT"><button type="button" class="xx" id="insX" aria-label="Close">\u2715</button>'
++'<h3 id="insT" data-bn="অ্যাপ হিসেবে ইনস্টল করুন" data-en="Install as an app"></h3>'
++'<p class="lead" data-bn="হোম স্ক্রিনে আইকন বসবে আর ফুল স্ক্রিনে খুলবে। আলাদা কিছু ডাউনলোড করতে হবে না।" data-en="Adds an icon to your home screen and opens full screen. Nothing else to download."></p>'
++'<div class="insn" id="insW" hidden data-bn="আপনি ফেসবুক বা মেসেঞ্জারের ভেতরের ব্রাউজারে আছেন, এখানে ইনস্টল হয় না। ওপরের মেনু (⋮ বা ···) থেকে “ব্রাউজারে খুলুন” চাপুন, তারপর আবার ইনস্টল করুন।" data-en="You are inside the Facebook or Messenger browser, which cannot install apps. Open its menu (⋮ or ···), tap “Open in browser”, then install again."></div>'
++'<ol class="ist" data-pf="ios">'
++li("ব্রাউজারের Share বাটনে ট্যাপ করুন (Safari-তে নিচে, iPad-এ ওপরে)","Tap the browser’s Share button (bottom in Safari, top on iPad)",SHARE)
++li("নিচে স্ক্রল করে “Add to Home Screen” বাছুন","Scroll down and choose “Add to Home Screen”",PLUS)
++li("ওপরে ডানে “Add” চাপুন। হোম স্ক্রিনে CV Studio আইকন চলে আসবে।","Tap “Add” at the top right. The CV Studio icon appears on your home screen.")
++'</ol>'
++'<ol class="ist" data-pf="android">'
++li("Chrome-এর ওপরে ডানে মেনু চাপুন","Tap the menu at the top right of Chrome",DOTS)
++li("“Install app” বা “Add to Home screen” বাছুন","Choose “Install app” or “Add to Home screen”")
++li("“Install” চাপুন। হোম স্ক্রিনে আইকন চলে আসবে।","Tap “Install”. The icon appears on your home screen.")
++'</ol>'
++'<ol class="ist" data-pf="desktop">'
++li("ঠিকানার ঘরের ডানদিকের ইনস্টল আইকনে ক্লিক করুন (Chrome বা Edge)","Click the install icon at the right end of the address bar (Chrome or Edge)")
++li("“Install” চাপুন। অ্যাপ আলাদা উইন্ডোতে খুলবে।","Click “Install”. The app opens in its own window.")
++'</ol>'
++'<a class="insl" href="manual.html#install" data-bn="ছবিসহ গাইড দেখুন →" data-en="See the guide with pictures →"></a>'
++'</div>';
+document.body.appendChild(m);
+each("[data-bn]",txt,m);
+m.addEventListener("click",function(e){if(e.target===m||(e.target.closest&&e.target.closest("#insX")))close()});
+return m}
+
+function open(){var m=modal();last=document.activeElement;
+each("[data-pf]",function(e){e.hidden=e.dataset.pf!==pf},m);
+document.getElementById("insW").hidden=!inApp;
+each("[data-bn]",txt,m);
+m.hidden=false;document.body.style.overflow="hidden";
+var x=document.getElementById("insX");if(x)x.focus()}
+function close(){var m=document.getElementById("insm");if(!m||m.hidden)return;m.hidden=true;document.body.style.overflow="";if(last&&last.focus)last.focus()}
+
+async function go(){
+if(dp){var p=dp;dp=null;try{await p.prompt();await p.userChoice}catch(x){}sync();return}
+open()}
+
+document.addEventListener("click",function(e){var c=e.target.closest&&e.target.closest("[data-ins]");if(c){e.preventDefault();go();return}
+if(e.target.closest&&e.target.closest("#lg"))setTimeout(sync,0)});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")close()});
+window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();dp=e;setFlag(false);sync()});
+window.addEventListener("appinstalled",function(){dp=null;setFlag(true);close();sync();note(lang()==="en"?"App installed. Open it from your home screen.":"অ্যাপ ইনস্টল হয়েছে। হোম স্ক্রিন থেকে খুলুন।")});
+window.addEventListener("pageshow",sync);
+try{var mq=matchMedia("(display-mode: standalone)");if(mq.addEventListener)mq.addEventListener("change",sync)}catch(e){}
+sync();
+})();
