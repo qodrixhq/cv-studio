@@ -757,3 +757,41 @@ window.addEventListener("pageshow",sync);
 try{var mq=matchMedia("(display-mode: standalone)");if(mq.addEventListener)mq.addEventListener("change",sync)}catch(e){}
 sync();
 })();
+
+/* ===== v17: CV library (several CVs on this device), finish celebration + share, motion ===== */
+(function(){
+var LK="cvlib",SITE="https://cv-studio.qodrix-hq.workers.dev/";
+var bn=function(){return !(typeof S!=="undefined"&&S.lang==="en")};
+var tx=function(a,b){return bn()?a:b};
+function rd(){try{var l=JSON.parse(localStorage.getItem(LK)||"null");if(l&&l.items&&l.items.length)return l}catch(e){}return null}
+function wr(l){try{localStorage.setItem(LK,JSON.stringify(l))}catch(e){}}
+function uid(){return"c"+Date.now().toString(36)+Math.random().toString(36).slice(2,5)}
+function init(){var l=rd();if(!l){var id=uid();l={cur:id,items:[{id:id,name:"",ts:Date.now(),data:null}]};wr(l)}if(!l.items.some(function(i){return i.id===l.cur}))l.cur=l.items[0].id;return l}
+function cur(l){return l.items.filter(function(i){return i.id===l.cur})[0]||l.items[0]}
+function snap(l){var it=cur(l);try{it.data=JSON.parse(JSON.stringify(S))}catch(e){}it.ts=Date.now()}
+function nameOf(l,it,i){var d=it.id===l.cur?S:it.data;return it.name||(d&&d.name)||("CV "+(i+1))}
+function ago(ts){var m=Math.round((Date.now()-ts)/60000);if(m<1)return tx("এইমাত্র","just now");if(m<60)return m+tx(" মিনিট আগে"," min ago");var h=Math.round(m/60);if(h<24)return h+tx(" ঘণ্টা আগে"," h ago");return Math.round(h/24)+tx(" দিন আগে"," d ago")}
+function load(it){var lang=S.lang;S=Object.assign(blank(),it.data?JSON.parse(JSON.stringify(it.data)):{lang:lang});save();if(document.getElementById("builder")){fill();upd();step=0;try{ui()}catch(e){}}}
+function go(id){var l=init(),it=l.items.filter(function(i){return i.id===id})[0];if(!it||id===l.cur)return;snap(l);l.cur=id;wr(l);load(it);paint()}
+function addNew(copy){var l=init();snap(l);var id=uid(),it={id:id,name:"",ts:Date.now(),data:null};if(copy){it.data=JSON.parse(JSON.stringify(S));it.name=nameOf(l,cur(l),l.items.indexOf(cur(l)))+tx(" (কপি)"," (copy)")}l.items.push(it);l.cur=id;wr(l);load(it);paint();if(!document.getElementById("builder")&&!copy)location.href="builder.html"}
+function ren(){var l=init(),it=cur(l),n=prompt(tx("CV-র নাম","CV name"),nameOf(l,it,l.items.indexOf(it)));if(n===null)return;it.name=n.trim().slice(0,40);wr(l);paint()}
+function del(){var l=init();if(!confirm(tx("এই CV মুছে ফেলবেন?","Delete this CV?")))return;if(l.items.length<2){var lang=S.lang;S=blank();S.lang=lang;save();l.items=[{id:l.cur,name:"",ts:Date.now(),data:null}];wr(l);if(document.getElementById("builder")){fill();upd()}paint();return}var i=l.items.indexOf(cur(l));l.items.splice(i,1);var nx=l.items[Math.max(0,i-1)];l.cur=nx.id;wr(l);load(nx);paint()}
+function paint(){var l=init(),bar=document.getElementById("xlib"),lst=document.getElementById("libList");
+ if(bar){bar.innerHTML='<label><span>'+tx("আমার CV","My CV")+'</span><select id="libSel" aria-label="CV"></select></label><button type="button" class="btn" data-lib="new">'+tx("+ নতুন","+ New")+'</button><button type="button" class="btn" data-lib="dup">'+tx("কপি","Copy")+'</button><button type="button" class="btn" data-lib="ren">'+tx("নাম","Rename")+'</button><button type="button" class="btn" data-lib="del">'+tx("মুছুন","Delete")+'</button>';var s=document.getElementById("libSel");l.items.forEach(function(it,i){var o=document.createElement("option");o.value=it.id;o.textContent=nameOf(l,it,i);if(it.id===l.cur)o.selected=true;s.appendChild(o)})}
+ if(lst){lst.innerHTML="";l.items.forEach(function(it,i){var b=document.createElement("button");b.type="button";b.className="xl-it"+(it.id===l.cur?" on":"");b.dataset.libGo=it.id;b.innerHTML="<span></span><small>"+ago(it.ts)+"</small>";b.firstChild.textContent=nameOf(l,it,i);lst.appendChild(b)})}}
+document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[data-lib],[data-lib-go]");if(!b)return;if(b.dataset.libGo){go(b.dataset.libGo);if(!document.getElementById("builder"))location.href="builder.html";return}var k=b.dataset.lib;if(k==="new")addNew(false);else if(k==="dup")addNew(true);else if(k==="ren")ren();else if(k==="del")del()});
+document.addEventListener("change",function(e){if(e.target&&e.target.id==="libSel")go(e.target.value)});
+try{init();paint();var _lb=labels;if(typeof _lb==="function"){labels=function(){var r=_lb.apply(this,arguments);paint();return r}}}catch(e){}
+setInterval(function(){try{var l=rd();if(l&&document.getElementById("builder")){snap(l);wr(l)}}catch(e){}},15000);
+/* celebration + share after a PDF or Word file is saved */
+function confetti(){if(matchMedia("(prefers-reduced-motion:reduce)").matches)return;var c=document.createElement("canvas");c.className="xcf";c.width=innerWidth;c.height=innerHeight;document.body.appendChild(c);var x=c.getContext("2d"),cols=["#2F4BFF","#FFB020","#19B48F","#7A5CFF","#E5484D"],p=[];for(var i=0;i<120;i++)p.push({x:c.width/2,y:c.height*.7,vx:(Math.random()-.5)*14,vy:-Math.random()*16-4,s:5+Math.random()*6,r:Math.random()*6,vr:(Math.random()-.5)*.4,c:cols[i%5]});var t0=performance.now();(function f(t){var d=t-t0;x.clearRect(0,0,c.width,c.height);p.forEach(function(q){q.vy+=.38;q.x+=q.vx;q.y+=q.vy;q.r+=q.vr;x.save();x.translate(q.x,q.y);x.rotate(q.r);x.fillStyle=q.c;x.globalAlpha=Math.max(0,1-d/2200);x.fillRect(-q.s/2,-q.s/4,q.s,q.s/2);x.restore()});if(d<2300)requestAnimationFrame(f);else c.remove()})(t0)}
+function celebrate(name,blob){confetti();var old=document.querySelector(".xcel");if(old)old.remove();var d=document.createElement("div");d.className="xcel";d.setAttribute("role","status");d.innerHTML="<b>"+tx("দারুণ! আপনার CV তৈরি","Done! Your CV is ready")+"</b><p>"+tx("বন্ধুদের জানান, তাদেরও কাজে লাগবে।","Tell a friend, it may help them too.")+"</p><div></div>";var row=d.lastChild,file=null;try{file=new File([blob],name,{type:blob.type})}catch(e){}
+ function btn(t,fn,p){var b=document.createElement("button");b.type="button";b.className="btn"+(p?" p":"");b.textContent=t;b.onclick=fn;row.appendChild(b)}
+ var canFile=file&&navigator.canShare&&navigator.canShare({files:[file]});
+ if(canFile)btn(tx("ফাইল শেয়ার","Share file"),function(){navigator.share({files:[file],title:"CV"}).catch(function(){})},true);
+ btn(tx("সাইট শেয়ার","Share site"),function(){var o={title:"CV Studio",text:tx("CV Studio দিয়ে ফ্রিতে CV বানালাম","I made my CV for free with CV Studio"),url:SITE};if(navigator.share)navigator.share(o).catch(function(){});else{try{navigator.clipboard.writeText(SITE);toast(tx("লিংক কপি হয়েছে","Link copied"))}catch(e){}}},!canFile);
+ btn(tx("ঠিক আছে","OK"),function(){d.remove()});document.body.appendChild(d);setTimeout(function(){if(d.parentNode)d.remove()},12000)}
+try{var _sf=saveFile;saveFile=async function(name,blob){var r=await _sf.apply(this,arguments);try{if(/\.(pdf|docx)$/i.test(name))celebrate(name,blob)}catch(e){}return r}}catch(e){}
+/* motion helpers: header shadow on scroll, smooth theme switch */
+try{var hd=document.querySelector("header");if(hd){var sc=function(){hd.classList.toggle("sc",scrollY>6)};addEventListener("scroll",sc,{passive:true});sc()}var th=document.getElementById("th");if(th)th.addEventListener("click",function(){var h=document.documentElement;h.classList.add("tt");setTimeout(function(){h.classList.remove("tt")},520)})}catch(e){}
+})();

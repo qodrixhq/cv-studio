@@ -6,12 +6,12 @@
 <title>CV বানান | CV Studio by Qodrix</title>
 <link rel="canonical" href="https://cv-studio.qodrix-hq.workers.dev/builder.html">
 <meta name="description" content="CV Studio by Qodrix দিয়ে বাংলা বা ইংরেজি CV বানান, PDF নামান। ১৫টি টেমপ্লেট, ১২টি রঙ। Build your CV free.">
-<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script>(function(){try{var k=localStorage.getItem("cvtheme");if(!k)k=matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light";document.documentElement.dataset.theme=k}catch(e){}})()</script>
 <meta property="og:type" content="website"><meta property="og:site_name" content="CV Studio by Qodrix"><meta property="og:title" content="CV Studio | Free CV Maker (Bangla and English)"><meta property="og:description" content="Build a professional CV in 10 minutes. Free, no login, ATS friendly."><meta property="og:image" content="https://cv-studio.qodrix-hq.workers.dev/og.png"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#0B1220">
 <link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="icon" href="icon-192.png" sizes="192x192" type="image/png">
 <link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="stylesheet" href="style.css?v=16">
+<link rel="stylesheet" href="style.css?v=17">
 </head>
 <body  data-v="e">
 <header>
@@ -21,7 +21,7 @@
  <button class="btn p" id="pdf"></button>
 </header>
 <nav class="tabs"><a href="index.html" data-bn="হোম" data-en="Home"></a><a href="builder.html" class=on data-bn="CV বানান" data-en="Build CV"></a><a href="ats.html" data-bn="ATS ও কিওয়ার্ড" data-en="ATS and keywords"></a><a href="cover-letter.html" data-bn="কভার লেটার" data-en="Cover letter"></a><a href="guide.html" data-bn="গাইড" data-en="Guide"></a><a href="manual.html" data-bn="সাহায্য" data-en="Help"></a></nav>
-<main id="builder">
+<main id="builder"><div class="xlib" id="xlib"></div>
 <section class="ed"><div class="xbh"><div class="xbt"><span><span data-bn="ধাপ" data-en="Step"></span> <b id="xbn">1</b> / <span id="xbm">7</span></span><span class="xsv" data-bn="✓ অটো-সেভ চালু" data-en="✓ Auto-save on"></span></div><h2 id="xbq"></h2><p id="xbp"></p><div class="xprog"><i id="xpi"></i></div></div>
  <div class="rail" id="rail"></div>
  <div class="pane on" data-s="0">
@@ -88,7 +88,7 @@
 <footer data-bn="CV Studio by Qodrix" data-en="CV Studio by Qodrix"></footer>
 <nav class="bar"><button class="on" data-v="e" id="b1"></button><button data-v="v" id="b2"></button></nav>
 <nav class="bnav" aria-label="Main"><a href="index.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg><span data-bn="হোম" data-en="Home"></span></a><a href="builder.html" class=on><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg><span data-bn="CV বানান" data-en="Build"></span></a><a href="ats.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg><span data-bn="ATS" data-en="ATS"></span></a><a href="cover-letter.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span data-bn="চিঠি" data-en="Letter"></span></a><a href="guide.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2z"/><path d="M4 21V5"/></svg><span data-bn="গাইড" data-en="Guide"></span></a></nav>
-<script src="app.js?v=15"></script>
+<script src="app.js?v=16"></script>
 <script>(function(){var ps=[].slice.call(document.querySelectorAll(".pane")),$=function(i){return document.getElementById(i)};if(!ps.length||!$("xpi"))return;var q=0;function up(){q=0;var i=ps.findIndex(function(p){return p.classList.contains("on")});if(i<0)i=0;var h=ps[i].querySelector("h2.q"),s=ps[i].querySelector("h2.q + .sub");$("xbn").textContent=i+1;$("xbm").textContent=ps.length;$("xbq").textContent=h?h.textContent:"";$("xbp").textContent=s?s.textContent:"";$("xpi").style.width=((i+1)/ps.length*100)+"%"}function sch(){if(!q){q=1;requestAnimationFrame(up)}}up();var mo=new MutationObserver(sch);ps.forEach(function(p){mo.observe(p,{attributes:true,attributeFilter:["class"]});var h=p.querySelector("h2.q"),s=p.querySelector("h2.q + .sub");if(h)mo.observe(h,{childList:true,characterData:true,subtree:true});if(s)mo.observe(s,{childList:true,characterData:true,subtree:true})})})()</script>
 <script>(function(){var g=function(i){return document.getElementById(i)};g("xpdf").addEventListener("click",function(){g("pdf").click()});g("xdoc").addEventListener("click",function(){g("docx").click()})})()</script>
 <script>(function(){var e=document.getElementById("email");if(!e)return;var m=document.createElement("div");m.className="xerr";m.hidden=true;e.parentNode.insertBefore(m,e.nextSibling);var ok=function(v){return!v||/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)};e.addEventListener("blur",function(){var v=e.value.trim();e.classList.remove("bad");if(ok(v)){m.hidden=true}else{void e.offsetWidth;e.classList.add("bad");m.textContent=(typeof S!=="undefined"&&S.lang==="en")?"Add \u201c@\u201d and \u201c.\u201d, e.g. name@gmail.com":"\u0987\u09ae\u09c7\u0987\u09b2\u09c7 \u201c@\u201d \u0986\u09b0 \u201c.\u201d \u09a6\u09bf\u09a8, \u09af\u09c7\u09ae\u09a8 name@gmail.com";m.hidden=false}});e.addEventListener("input",function(){e.classList.remove("bad");m.hidden=true})})()</script>
