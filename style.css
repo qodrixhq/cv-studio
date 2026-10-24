@@ -793,3 +793,49 @@ html.tt,html.tt *{transition:background-color .45s,color .45s,border-color .45s!
 .bx>.bt.ins,.bx>.bt.rvw{grid-row:auto}
 }
 .bt.hero{align-items:flex-start}.bt.hero>*{margin-left:0}.bt.hero p{margin:0}
+
+/* ===== v18: Pro Bento layouts for ATS, cover letter, guide, manual, privacy, contact, admin ===== */
+.tool{max-width:1280px;padding:8px 14px 100px}
+.tool:has(.xg),.tool:has(#cl),.tool:has(.cf),.tool:has(#priv),.tool.guide,.tool.mn{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;align-content:start}
+.tool>.phd,.tool>.sub{grid-column:1/-1;margin:6px 0 0}
+.tool>.sub{margin:-6px 0 0;max-width:640px}
+.phd h2{font-family:'Anek Bangla','Hind Siliguri',sans-serif;font-weight:800;font-size:clamp(26px,4.4vw,38px);letter-spacing:-.01em}
+.phi{width:48px;height:48px;border-radius:16px;background:var(--soft)}
+.atsb,.cf,.ci,.gck,.gd,.mc,#priv,.xg,.gr li,.tool details:not(.atsb){background:var(--panel);border:1px solid var(--line);border-radius:28px;box-shadow:var(--sh);transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s}
+.atsb,.cf,.ci,.gck,.mc,#priv{padding:20px}
+.gr li:hover,.mc:hover,.gd:hover{transform:translateY(-3px)}
+.gh{background:var(--dkb);color:#EEF1FA;border:0;border-radius:28px;padding:26px;margin:0}.gh h3{font-family:'Anek Bangla',sans-serif;font-weight:800;font-size:clamp(24px,3.4vw,32px)}
+.gr{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.gr li{padding:16px;display:flex;gap:12px;align-items:flex-start}.gn{background:var(--brand);color:var(--bi)}
+.gr li:nth-child(3n+2) .gn{background:#FFB020;color:#0B1020}.gr li:nth-child(3n) .gn{background:#19B48F;color:#fff}
+.gdd{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin:0}.gd{padding:18px;margin:0}
+.gq{grid-column:1/-1;font-family:'Anek Bangla',sans-serif;font-weight:800;margin:8px 0 0}
+.tool details:not(.atsb){padding:6px 16px;margin:0}
+.mj{display:flex;gap:6px;overflow-x:auto;position:sticky;top:60px;z-index:3;padding:6px;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(10px);border-radius:999px}
+.mj a{flex:none;min-height:40px;display:flex;align-items:center;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:var(--panel);font-weight:600;font-size:14px}
+.mc{margin:0}.mfin{grid-column:1/-1}.gcta{grid-column:1/-1;justify-self:start}
+#priv{max-width:860px}
+.ad-w{max-width:1100px}.ad-login{background:var(--panel);color:var(--ink);border:1px solid var(--line);box-shadow:var(--sh)}
+.ad-top,.ad-card,.ad-stat,.ad-add,.ad-empty{border-radius:24px}.ad-card,.ad-stat,.ad-add{box-shadow:var(--sh)}
+@media(min-width:960px){
+.tool:has(.xg){grid-template-columns:repeat(12,minmax(0,1fr))}
+.tool:has(.xg)>.xg{grid-column:1/6;grid-row:3/5;border-radius:28px}
+.tool:has(.xg)>#ats{grid-column:6/13;grid-row:3}.tool:has(.xg)>#kw{grid-column:6/13;grid-row:4}
+.tool:has(#cl)>.tl{grid-column:1/-1}.tool:has(#cl)>#cl{grid-column:1/-1}
+.clg{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:12px;align-items:start}
+.clg>#clC,.clg>#clP,.clg>#clM,.clg>div.clb:nth-of-type(1){grid-column:1}
+.clg>#clT{grid-column:2;grid-row:1/5;min-height:300px}.clg>div.clb:nth-of-type(2){grid-column:2;grid-row:5}
+.tool.guide,.tool.mn,.tool:has(.cf){grid-template-columns:repeat(12,minmax(0,1fr))}
+.guide>.gh{grid-column:1/8;grid-row:2}.guide>.gck{grid-column:8/13;grid-row:2/4}.guide>.gr{grid-column:1/8;grid-row:3}
+.guide>.gdd{grid-column:1/-1}.guide>details{grid-column:span 4}
+.mn>.gh,.mn>.mj{grid-column:1/-1}.mn>.mc{grid-column:span 6}.mn>#install{grid-column:1/-1}.mn>details{grid-column:span 6}
+.tool:has(.cf)>.cf{grid-column:1/8}.tool:has(.cf)>.ci{grid-column:8/13}
+.tool:has(#priv){grid-template-columns:minmax(0,860px);justify-content:center}
+}
+@media(prefers-reduced-motion:reduce){.gr li:hover,.mc:hover,.gd:hover{transform:none}}
+/* v18 fixes */
+.tool.guide,.tool.mn,.tool:has(.xg),.tool:has(#cl),.tool:has(.cf){max-width:1280px;width:100%;box-sizing:border-box}
+.tool>.phd,.tool>.sub,.gr{background:none;border:0;box-shadow:none;padding-left:0;padding-right:0;border-radius:0}
+.tool>.sub{padding-top:0}
+
+@media(max-width:959px){.clg{display:flex;flex-direction:column;gap:10px}}
