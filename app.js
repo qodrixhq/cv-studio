@@ -35,7 +35,8 @@ Object.assign(SAMPLE.en,{cert:[{t:'Digital Marketing Course',o:'Online training 
 const PAL=[["#2563eb","রয়্যাল ব্লু","Royal Blue"],["#4f46e5","ইন্ডিগো","Indigo"],["#7c3aed","ভায়োলেট","Violet"],["#0284c7","ওশ্যান","Ocean"],["#0f766e","টিল","Teal"],["#059669","এমারেল্ড","Emerald"],["#166534","ফরেস্ট","Forest"],["#b45309","গোল্ড","Gold"],["#dc2626","ক্রিমসন","Crimson"],["#be123c","রোজ","Rose"],["#86198f","প্লাম","Plum"],["#111827","চারকোল","Charcoal"]],COLS=PAL.map(x=>x[0]);
 const _G={};const ghost=k=>_G[k]||(_G[k]=document.createElement('textarea'));const $=id=>document.getElementById(id)||ghost(id);
 const esc=s=>String(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const blank=()=>({lang:"bn",tpl:"side",ac:COLS[0],font:"Hind Siliguri",ps:"ring",cc:"+880",lvl:"exp",show:{},act:[{}],at:"",ad:{},ai:[{}],hb:[],cert:[{}],prj:[{}],aw:[{}],ref:[{}],pi:{},dec:false,sig:"",ord:[],fit:false,sp:"n",raw:"",pz:1,px:0,py:0,fz:"n",name:"",role:"",email:"",phone:"",addr:"",photo:"",sum:"",sk:[],lg:[{}],exp:[{}],edu:[{ongoing:true}]});
+const DFL=(()=>{try{return JSON.parse(localStorage.getItem("cvdef")||"{}")||{}}catch(e){return{}}})();
+const blank=()=>({lang:"bn",tpl:DFL.tpl||"side",ac:DFL.ac||COLS[0],pg:DFL.pg||"a4",num:"",font:"Hind Siliguri",ps:"ring",cc:DFL.cc||"+880",lvl:"exp",show:{},act:[{}],at:"",ad:{},ai:[{}],hb:[],cert:[{}],prj:[{}],aw:[{}],ref:[{}],pi:{},dec:false,sig:"",ord:[],fit:false,sp:"n",raw:"",pz:1,px:0,py:0,fz:"n",name:"",role:"",email:"",phone:"",addr:"",photo:"",sum:"",sk:[],lg:[{}],exp:[{}],edu:[{ongoing:true}]});
 let S=blank(),step=0;
 try{const r=localStorage.getItem("cvs2");if(r)S=Object.assign(blank(),JSON.parse(r))}catch(e){}
 const save=()=>{try{localStorage.setItem("cvs2",JSON.stringify(S))}catch(e){}};
@@ -794,4 +795,80 @@ function celebrate(name,blob){confetti();var old=document.querySelector(".xcel")
 try{var _sf=saveFile;saveFile=async function(name,blob){var r=await _sf.apply(this,arguments);try{if(/\.(pdf|docx)$/i.test(name))celebrate(name,blob)}catch(e){}return r}}catch(e){}
 /* motion helpers: header shadow on scroll, smooth theme switch */
 try{var hd=document.querySelector("header");if(hd){var sc=function(){hd.classList.toggle("sc",scrollY>6)};addEventListener("scroll",sc,{passive:true});sc()}var th=document.getElementById("th");if(th)th.addEventListener("click",function(){var h=document.documentElement;h.classList.add("tt");setTimeout(function(){h.classList.remove("tt")},520)})}catch(e){}
+})();
+
+
+/* ===== v19: settings, What's New and updates, defaults, text size, digit style, motion ===== */
+const APP_VER=19;
+(function(){
+var R=document.documentElement,g=function(i){return document.getElementById(i)},en=function(){return typeof S!=="undefined"&&S.lang==="en"},tx=function(a,b){return en()?b:a};
+function pf(k,d){try{var v=localStorage.getItem(k);return v===null?d:v}catch(e){return d}}
+function sp(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function msg(m){if(typeof toast==="function"){try{toast(m);return}catch(e){}}var t=g("toast");if(t){t.textContent=m;t.classList.add("on");setTimeout(function(){t.classList.remove("on")},2400)}}
+function prefs(){R.dataset.fs=pf("cvfs","1");R.dataset.motion=pf("cvmo","on")}prefs();
+/* theme: light, dark or follow the phone */
+function theme(m){if(m==="auto"){try{localStorage.removeItem("cvtheme")}catch(e){}R.dataset.theme=matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"}else{sp("cvtheme",m);R.dataset.theme=m}R.classList.add("tt");setTimeout(function(){R.classList.remove("tt")},520)}
+/* digit style for the CV (preview and PDF) */
+var BNd="০১২৩৪৫৬৭৮৯";
+function conv(root,m){if(!root||!m)return;var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null),n,s,o;while(n=w.nextNode()){s=n.nodeValue;o=m==="bn"?s.replace(/[0-9]/g,function(d){return BNd[d]}):s.replace(/[০-৯]/g,function(d){return BNd.indexOf(d)});if(o!==s)n.nodeValue=o}}
+try{if(typeof buildSheets==="function"){var _bs=buildSheets;buildSheets=function(){var r=_bs.apply(this,arguments);try{if(S.num==="bn"||S.num==="en")(r.sheets||[]).forEach(function(x){if(x&&x.nodeType===1)conv(x,S.num)})}catch(e){}return r}}}catch(e){}
+/* versions and updates */
+function getVer(){return fetch("version.json?_="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json()})}
+function dot(on){var d=document.querySelector("#gear .ud");if(d)d.hidden=!on}
+function chk(force){var l=+pf("cvchk",0);if(!force&&Date.now()-l<216e5){dot(+pf("cvupd",0)>APP_VER);return Promise.resolve(null)}return getVer().then(function(v){sp("cvchk",Date.now());sp("cvupd",v.v);dot(v.v>APP_VER);return v}).catch(function(){return null})}
+function hardUpdate(){msg(tx("আপডেট হচ্ছে…","Updating…"));var p=[];try{if(navigator.serviceWorker)p.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}))}catch(e){}try{if(window.caches)p.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}))}catch(e){}Promise.all(p).catch(function(){}).then(function(){sp("cvupd",0);location.replace(location.pathname+"?u="+Date.now())})}
+function clearCache(){var p=[];try{if(window.caches)p.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}))}catch(e){}Promise.all(p).catch(function(){}).then(function(){msg(tx("ক্যাশ পরিষ্কার হয়েছে। আপনার CV অক্ষত আছে।","Cache cleared. Your CVs are untouched."))})}
+function fmt(d){try{return new Date(d).toLocaleDateString(en()?"en-GB":"bn-BD",{day:"numeric",month:"long",year:"numeric"})}catch(e){return d}}
+function L(o){return o?(en()?o.en:o.bn)||o.bn||"":""}
+function status(v){document.querySelectorAll("[data-upd-load]").forEach(function(e){e.hidden=true});var up=v&&v.v>APP_VER,vn=function(n){return (en()?"v":"v")+String(n).replace(/[0-9]/g,function(d){return en()?d:BNd[d]})};
+ document.querySelectorAll("[data-ver]").forEach(function(e){e.textContent=vn(APP_VER)});
+ document.querySelectorAll("[data-latest]").forEach(function(e){e.textContent=v?vn(v.v):"—"});
+ document.querySelectorAll("[data-upd-on]").forEach(function(e){e.hidden=!up});
+ document.querySelectorAll("[data-upd-off]").forEach(function(e){e.hidden=!!up||!v});
+ document.querySelectorAll("[data-upd-err]").forEach(function(e){e.hidden=!!v});
+ document.querySelectorAll("[data-upd-to]").forEach(function(e){e.textContent=v?vn(v.v):""});
+ document.querySelectorAll("[data-checked]").forEach(function(e){e.textContent=tx("এইমাত্র","just now")})}
+function list(a){return (a||[]).map(function(x){var d=document.createElement("div");d.className="bn-row";d.textContent=L(x);return d})}
+function renderNotes(v){var h=g("wnList");if(!v)return;if(h){h.innerHTML="";}(h?(v.releases||[]):[]).forEach(function(r,i){var c=document.createElement("section");c.className="bn bn-rel"+(i===0?" bn-latest":"");var k=document.createElement("span");k.className="bn-k";k.textContent=(i===0?tx("সর্বশেষ · ","Latest · "):"")+"v"+String(r.v).replace(/[0-9]/g,function(d){return en()?d:BNd[d]})+" · "+fmt(r.date);c.appendChild(k);var t=document.createElement("h2");t.className="bn-t";t.textContent=L(r.title)||"";if(t.textContent)c.appendChild(t);[["new",tx("নতুন","New")],["better",tx("উন্নতি","Improved")],["fix",tx("ঠিক করা হয়েছে","Fixed")]].forEach(function(p){if(r[p[0]]&&r[p[0]].length){var ch=document.createElement("span");ch.className="bn-chip"+(p[0]==="new"?" a":"");ch.textContent=p[1];c.appendChild(ch);list(r[p[0]]).forEach(function(n){c.appendChild(n)})}});h.appendChild(c)});
+ var s=g("sWnList");if(s&&v.releases&&v.releases[0]){s.innerHTML="";list((v.releases[0]["new"]||[]).slice(0,4)).forEach(function(n){s.appendChild(n)});var ttl=g("sWnTitle");if(ttl)ttl.textContent="v"+String(v.releases[0].v).replace(/[0-9]/g,function(d){return en()?d:BNd[d]})+tx(" এসেছে"," is here")}}
+/* settings page: controls */
+function seg(set,val){document.querySelectorAll('[data-set="'+set+'"]').forEach(function(b){b.classList.toggle("a",b.dataset.v===String(val))})}
+function defs(){try{return JSON.parse(pf("cvdef","{}"))||{}}catch(e){return{}}}
+function setDef(k,v){var d=defs();d[k]=v;sp("cvdef",JSON.stringify(d))}
+function init(){
+ seg("theme",pf("cvtheme","auto"));seg("lang",S.lang);seg("fs",pf("cvfs","1"));seg("num",S.num||"");seg("pg",defs().pg||"a4");
+ var mo=g("sMo");if(mo){mo.classList.toggle("on",pf("cvmo","on")!=="off");mo.setAttribute("aria-checked",pf("cvmo","on")!=="off")}
+ var st=g("sTpl");if(st&&typeof TPS!=="undefined"){TPS.forEach(function(x){var o=document.createElement("option");o.value=x[0];o.textContent=en()?x[2]:x[1];st.appendChild(o)});st.value=defs().tpl||"side"}
+ var sa=g("sAc");if(sa&&typeof COLS!=="undefined"){COLS.slice(0,12).forEach(function(c){var b=document.createElement("button");b.type="button";b.className="bn-sw"+((defs().ac||COLS[0])===c?" a":"");b.style.background=c;b.dataset.set="ac";b.dataset.v=c;b.setAttribute("aria-label",c);sa.appendChild(b)})}
+ var sc=g("sCc");if(sc){[["+880","বাংলাদেশ","Bangladesh"],["+91","ভারত","India"],["+92","পাকিস্তান","Pakistan"],["+977","নেপাল","Nepal"],["+94","শ্রীলঙ্কা","Sri Lanka"],["+966","সৌদি আরব","Saudi Arabia"],["+971","সংযুক্ত আরব আমিরাত","UAE"],["+974","কাতার","Qatar"],["+965","কুয়েত","Kuwait"],["+60","মালয়েশিয়া","Malaysia"],["+65","সিঙ্গাপুর","Singapore"],["+44","যুক্তরাজ্য","UK"],["+1","যুক্তরাষ্ট্র/কানাডা","USA/Canada"]].forEach(function(x){var o=document.createElement("option");o.value=x[0];o.textContent=x[0]+" · "+(en()?x[2]:x[1]);sc.appendChild(o)});sc.value=defs().cc||"+880"}
+ var lc=g("sCnt");if(lc){var l=null;try{l=JSON.parse(localStorage.getItem("cvlib")||"null")}catch(e){}lc.textContent=String(l&&l.items?l.items.length:1).replace(/[0-9]/g,function(d){return en()?d:BNd[d]})}
+ var lb=g("sLbk");if(lb){var t=+pf("cvlbk",0);lb.textContent=t?fmt(t):tx("এখনো নয়","Never")}}
+document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[data-set],[data-act]");if(!b)return;
+ if(b.dataset.set){var k=b.dataset.set,v=b.dataset.v;
+  if(k==="theme"){theme(v);seg("theme",v)}
+  else if(k==="lang"){if(S.lang!==v){S.lang=v;save();location.reload()}}
+  else if(k==="fs"){sp("cvfs",v);prefs();seg("fs",v)}
+  else if(k==="num"){S.num=v;save();seg("num",v);msg(tx("CV-তে প্রয়োগ হবে","Applied to your CV"))}
+  else if(k==="pg"){setDef("pg",v);seg("pg",v);msg(tx("নতুন CV-র জন্য সেভ হয়েছে","Saved for new CVs"))}
+  else if(k==="ac"){setDef("ac",v);document.querySelectorAll('.bn-sw').forEach(function(x){x.classList.toggle("a",x.dataset.v===v)});msg(tx("নতুন CV-র জন্য সেভ হয়েছে","Saved for new CVs"))}
+  return}
+ var a=b.dataset.act;
+ if(a==="mo"){var off=pf("cvmo","on")!=="off";sp("cvmo",off?"off":"on");prefs();init()}
+ else if(a==="upd")hardUpdate();
+ else if(a==="chk"){chk(true).then(function(v){status(v);if(!v)msg(tx("এখন চেক করা যায়নি, ইন্টারনেট দেখুন","Could not check, please go online"));else msg(v.v>APP_VER?tx("নতুন সংস্করণ পাওয়া গেছে","A new version is available"):tx("আপনি সর্বশেষ সংস্করণে আছেন","You have the latest version"))})}
+ else if(a==="cache")clearCache();
+ else if(a==="bk"){var l=null;try{l=JSON.parse(localStorage.getItem("cvlib")||"null")}catch(e){}var x=document.createElement("a");x.href=URL.createObjectURL(new Blob([JSON.stringify({app:"cv-studio",ver:APP_VER,cur:S,lib:l})],{type:"application/json"}));x.download="cv-backup.json";document.body.appendChild(x);x.click();x.remove();sp("cvlbk",Date.now());init()}
+ else if(a==="rs"){var f=g("sRsIn");if(f)f.click()}
+ else if(a==="reset"){if(confirm(tx("সব CV মুছে নতুন করে শুরু করবেন? এটা ফেরানো যাবে না।","Delete all CVs and start fresh? This cannot be undone."))){var lang=S.lang;S=blank();S.lang=lang;save();try{localStorage.removeItem("cvlib")}catch(e){}init();msg(tx("সব মুছে নতুন করে শুরু হয়েছে","Everything was cleared"))}}
+ else if(a==="share"){var o={title:"CV Studio",text:tx("CV Studio দিয়ে ফ্রিতে CV বানান","Make your CV free with CV Studio"),url:"https://cv-studio.qodrix-hq.workers.dev/"};if(navigator.share)navigator.share(o).catch(function(){});else{try{navigator.clipboard.writeText(o.url);msg(tx("লিংক কপি হয়েছে","Link copied"))}catch(e){}}}
+});
+document.addEventListener("change",function(e){var t=e.target;if(t.id==="sTpl"){setDef("tpl",t.value);msg(tx("নতুন CV-র জন্য সেভ হয়েছে","Saved for new CVs"))}else if(t.id==="sCc"){setDef("cc",t.value);msg(tx("নতুন CV-র জন্য সেভ হয়েছে","Saved for new CVs"))}
+ else if(t.id==="sRsIn"){var f=t.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{var d=JSON.parse(r.result);if(!d||typeof d!=="object"||Array.isArray(d))throw 0;if(d.app==="cv-studio"&&d.cur){localStorage.setItem("cvs2",JSON.stringify(Object.assign(blank(),d.cur)));if(d.lib)localStorage.setItem("cvlib",JSON.stringify(d.lib));else localStorage.removeItem("cvlib")}else if("name" in d){localStorage.setItem("cvs2",JSON.stringify(Object.assign(blank(),d)))}else throw 0;S=Object.assign(blank(),JSON.parse(localStorage.getItem("cvs2")));alert(tx("ব্যাকআপ ফিরিয়ে আনা হয়েছে।","Backup restored."));init()}catch(x){alert(tx("এটা সঠিক ব্যাকআপ ফাইল না।","This is not a valid backup file."))}};r.readAsText(f);t.value=""}});
+/* start-up */
+document.addEventListener("DOMContentLoaded",function(){});
+if(g("sTpl")||g("sMo")||g("sCnt"))init();
+chk(false);
+if(g("wnList")||g("sWnList")||document.querySelector("[data-ver]")){getVer().then(function(v){sp("cvchk",Date.now());sp("cvupd",v.v);dot(v.v>APP_VER);status(v);renderNotes(v)}).catch(function(){status(null)})}
+try{var seen=+pf("cvseen",0);if(seen&&seen<APP_VER&&!g("wnList"))setTimeout(function(){msg(tx("অ্যাপ আপডেট হয়েছে। নতুন কী, দেখুন সেটিংসে।","App updated. See What's New in Settings."))},900);sp("cvseen",APP_VER)}catch(e){}
+if(location.hash==="#review"){var rb=g("xrBtn");if(rb)setTimeout(function(){rb.click()},500)}
 })();

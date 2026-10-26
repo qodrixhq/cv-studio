@@ -1,0 +1,98 @@
+{
+ "v": 19,
+ "date": "2026-10-25",
+ "releases": [
+  {
+   "v": 19,
+   "date": "2026-10-25",
+   "title": {
+    "bn": "নতুন প্রফেশনাল ডিজাইন",
+    "en": "New professional design"
+   },
+   "new": [
+    {
+     "bn": "সেটিংস পেজ: থিম, ভাষা, ডিফল্ট সব এক জায়গায়",
+     "en": "Settings page: theme, language and defaults in one place"
+    },
+    {
+     "bn": "What's New পেজ আর আপডেট বাটন",
+     "en": "What's New page with an update button"
+    },
+    {
+     "bn": "CV-র সংখ্যার ধরন: বাংলা বা English",
+     "en": "CV number style: Bangla or English"
+    },
+    {
+     "bn": "নতুন CV-র ডিফল্ট টেমপ্লেট, রং, পেজ সাইজ ও ফোন কোড",
+     "en": "Defaults for new CVs: template, colour, page size, phone code"
+    },
+    {
+     "bn": "লেখার আকার আর অ্যানিমেশন সুইচ",
+     "en": "Text size and an animation switch"
+    }
+   ],
+   "better": [
+    {
+     "bn": "সব পেজে নতুন বেন্টো লেআউট",
+     "en": "New bento layout on every page"
+    },
+    {
+     "bn": "পরিষ্কার হেডার, কম ফাঁকা জায়গা",
+     "en": "Cleaner header, less empty space"
+    },
+    {
+     "bn": "ব্যাকআপ, রিস্টোর ও রিসেট এখন সেটিংসে",
+     "en": "Backup, restore and reset now live in Settings"
+    }
+   ]
+  },
+  {
+   "v": 18,
+   "date": "2026-10-23",
+   "title": {
+    "bn": "সব টুল পেজে বেন্টো লেআউট",
+    "en": "Bento layouts for the tool pages"
+   },
+   "new": [
+    {
+     "bn": "ATS, কভার লেটার, গাইড, ম্যানুয়াল, প্রাইভেসি, কন্টাক্টে নতুন লেআউট",
+     "en": "New layouts for ATS, cover letter, guide, manual, privacy, contact"
+    }
+   ],
+   "better": [
+    {
+     "bn": "কভার লেটারে দুই কলামের ফর্ম",
+     "en": "Two-column cover letter form"
+    }
+   ]
+  },
+  {
+   "v": 17,
+   "date": "2026-10-22",
+   "title": {
+    "bn": "একাধিক CV আর শেয়ার",
+    "en": "Several CVs and sharing"
+   },
+   "new": [
+    {
+     "bn": "এক ফোনে একাধিক CV রাখা",
+     "en": "Keep several CVs on one phone"
+    },
+    {
+     "bn": "PDF বা Word নামার পর কনফেটি ও শেয়ার",
+     "en": "Confetti and share after PDF or Word download"
+    },
+    {
+     "bn": "হোম থেকে নমুনা দিয়ে দেখুন",
+     "en": "Try a sample CV from Home"
+    }
+   ],
+   "better": [
+    {
+     "bn": "শান্ত অ্যানিমেশন",
+     "en": "Calmer animations"
+    }
+   ]
+  }
+ ]
+}
